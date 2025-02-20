@@ -5,7 +5,7 @@
 
 
 ## Overview
-BBY13-Comp1800.
+**BBY13-Comp1800.**  
 Summarize your project's purpose, problem solved, key features, user benefits, development context, and main technologies used.
 
 Example:
@@ -46,22 +46,22 @@ Example:
 
 ## Project Structure
 
-1800_202510_BBY13/
-├── node_modules
-│   ├── idk what this does
-├── src/
-│   └── put JS fills here
-├── public/
-│   ├── images
-│   │   └──  images inside
-│   ├──html
-│   │   └──  html files inside
-│   ├── css
-│   └──   └── css files inside
-├── .gitignore
-├── package.json
-├── README.md
-└── yarn.lock
+1800_202510_BBY13/  
+├── node_modules  
+│   ├── idk what this does  
+├── src/  
+│   └── put JS fills here  
+├── public/  
+│   ├── images  
+│   │   └──  images inside  
+│   ├──html  
+│   │   └──  html files inside  
+│   ├── css  
+│   │   └── css files inside  
+├── .gitignore  
+├── package.json  
+├── README.md  
+└── yarn.lock  
 ```
 
 ---
