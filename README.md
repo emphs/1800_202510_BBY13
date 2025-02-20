@@ -1,7 +1,11 @@
 
-# Project Name
+
+
+# TogetherNow
+
 
 ## Overview
+BBY13-Comp1800.
 Summarize your project's purpose, problem solved, key features, user benefits, development context, and main technologies used.
 
 Example:
@@ -42,17 +46,22 @@ Example:
 
 ## Project Structure
 
-Example:
-```
-project-name/
+1800_202510_BBY13/
+├── node_modules
+│   ├── idk what this does
 ├── src/
-│   ├── index.html
-│   ├── style.css
-│   ├── app.js
-│   └── components/
+│   └── put JS fills here
+├── public/
+│   ├── images
+│   │   └──  images inside
+│   ├──html
+│   │   └──  html files inside
+│   ├── css
+│   └──   └── css files inside
+├── .gitignore
 ├── package.json
 ├── README.md
-└── .gitignore
+└── yarn.lock
 ```
 
 ---
@@ -60,7 +69,7 @@ project-name/
 ## Contributors
 Hi My name is Livjot, I'm so excited to be starting this project and learning coding! 
 - **Larry** - sort of coding
-- Hello from May.
+- May is here!
 ---
 
 ## Acknowledgments
