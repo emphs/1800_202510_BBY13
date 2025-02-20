@@ -47,8 +47,8 @@ Example:
 ## Project Structure
 
 1800_202510_BBY13/  
-├── node_modules  
-│   ├── idk what this does  
+├── node_modules/  
+│   └── idk what this does  
 ├── src/  
 │   └── put JS fills here  
 ├── public/  
