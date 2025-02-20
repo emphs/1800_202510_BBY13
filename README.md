@@ -52,11 +52,11 @@ Example:
 ├── src/  
 │   └── put JS fills here  
 ├── public/  
-│   ├── images  
+│   ├── images/  
 │   │   └──  images inside  
-│   ├──html  
+│   ├──html/  
 │   │   └──  html files inside  
-│   ├── css  
+│   ├── css/  
 │   │   └── css files inside  
 ├── .gitignore  
 ├── package.json  
