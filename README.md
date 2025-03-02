@@ -47,18 +47,18 @@ Example:
 ## Project Structure
 
 1800_202510_BBY13/  
-├── client/
-│   ├── src/
-│   │   ├── main.js
-│   │   └── style.css
-│   ├── index.html
-│   └── package.json
-├── server/
-│   ├── src/
-│   │   └── server.js
-│   └── package.json
-├── package.json
-└── vite.config.js
+├── client/  
+│   ├── src/  
+│   │   ├── main.js  
+│   │   └── style.css  
+│   ├── index.html  
+│   └── package.json  
+├── server/  
+│   ├── src/  
+│   │   └── server.js  
+│   └── package.json  
+├── package.json  
+└── vite.config.js  
 ```
 
 ---
