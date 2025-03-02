@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>My BCIT Project</title>
+    <meta name="comp1800 template" content="My 1800 App">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+    <!-- Other libraries go here -->
+
+    <!-- Link to styles of your own -->
+    <link rel="stylesheet" href="/src/style.css">
+    <!-- Bootstrap Library CSS CDN-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Boostrap Library JS CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="#">My App</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="bg-primary text-white py-5">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold">Welcome to My Full-Stack App</h1>
+        <p class="lead">Built with Vite, Express, and Bootstrap 5.3.2</p>
+        <button class="btn btn-light btn-lg mt-3">Get Started</button>
+    </div>
+</section>
+
+<!-- Main Content -->
+<div class="container my-5">
+    <div class="row">
+        <!-- Card 1 -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Fast Frontend</h5>
+                    <p class="card-text">Vite powers a lightning-fast development experience with HMR.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Robust Backend</h5>
+                    <p class="card-text" id="message">Loading...</p> <!-- API message will appear here -->
+                </div>
+            </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Modern Styling</h5>
+                    <p class="card-text">Bootstrap 5.3.2 brings sleek, responsive design.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-4">
+    <div class="container">
+        <p class="mb-0">&copy; 2025 My App. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap 5.3.2 JS Bundle CDN (includes Popper.js) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<!-- Your main.js for API call -->
+
+<script type="module" src="/src/main.js"></script>
+
+</body>
+
+</html>

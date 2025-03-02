@@ -1,14 +1,16 @@
 {
   "name": "1800_202510_BBY13",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "workspaces": ["client", "server"],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "concurrently \"yarn workspace client dev\" \"yarn workspace server start\"",
+    "build": "yarn workspace client build",
+    "start": "yarn workspace server start"
   },
   "devDependencies": {
-    "vite": "^6.1.0"
+    "concurrently": "^9.1.2",
+    "vite": "^6.2.0"
   }
 }

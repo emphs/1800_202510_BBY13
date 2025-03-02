@@ -47,21 +47,18 @@ Example:
 ## Project Structure
 
 1800_202510_BBY13/  
-├── node_modules/  
-│   └── idk what this does  
-├── src/  
-│   └── put JS fills here  
-├── public/  
-│   ├── images/  
-│   │   └──  images inside  
-│   ├──html/  
-│   │   └──  html files inside  
-│   ├── css/  
-│   │   └── css files inside  
-├── .gitignore  
-├── package.json  
-├── README.md  
-└── yarn.lock  
+├── client/
+│   ├── src/
+│   │   ├── main.js
+│   │   └── style.css
+│   ├── index.html
+│   └── package.json
+├── server/
+│   ├── src/
+│   │   └── server.js
+│   └── package.json
+├── package.json
+└── vite.config.js
 ```
 
 ---
