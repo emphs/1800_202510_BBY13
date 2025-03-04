@@ -59,7 +59,6 @@ Example:
 │   └── package.json  
 ├── package.json  
 └── vite.config.js  
-```
 
 ---
 
