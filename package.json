@@ -5,7 +5,7 @@
   "type": "module",
   "workspaces": ["client", "server"],
   "scripts": {
-    "dev": "concurrently \"yarn workspace client dev\" \"yarn workspace server start\"",
+    "dev": "concurrently \"yarn workspace client dev\" \"yarn workspace server dev\"",
     "build": "yarn workspace client build",
     "start": "yarn workspace server start"
   },

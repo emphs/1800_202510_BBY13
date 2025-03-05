@@ -28,17 +28,17 @@ Example:
 ## Technologies Used
 
 Example:
-- **Frontend**: HTML, CSS, JavaScript
+- **Frontend**: HTML, CSS, JavaScript, React
 - **Backend**: Firebase for hosting
 - **Database**: Firestore
-- **API**: OpenWeatherMap API
+- **User_Auth**: Firebase authentication
 
 ---
 
 ## Usage
 
 Example:
-1. Open your browser and visit `http://localhost:3000`.
+1. Input 'yarn run dev' in terminal under project root and visit `http://localhost:5173`.
 2. Enter the name of the city in the search bar and press enter.
 3. View the weather information displayed on the screen.
 
@@ -47,25 +47,33 @@ Example:
 ## Project Structure
 
 1800_202510_BBY13/  
-├── client/  
-│   ├── src/  
-│   │   ├── main.js  
-│   │   └── style.css  
-│   ├── index.html  
-│   └── package.json  
-├── server/  
-│   ├── src/  
-│   │   └── server.js  
-│   └── package.json  
+├── node_modules/  
+├── public/           # Static assets (e.g., images, fonts, json)  
+├── src/             # Source code (JS/TS, CSS, etc.)  
+│   ├── main.js      # Entry JavaScript file  
+│   ├── App.jsx      # Example component (using React)  
+│   └── style.css    # Example styles  
+├── index.html       # Entry HTML file (in root, not src)  
 ├── package.json  
-└── vite.config.js  
+└── vite.config.js   # Vite configuration  
+
+
+Within src/:  
+├── main.jsx         # Entry point  
+├── App.jsx          # Main component  
+├── styles/          # Folder for CSS files  
+│   ├── main.css     # Global styles  
+│   └── App.css      # Styles specific to App.jsx  
+└── components/  
+    ├── Button.jsx  
+    └── Button.css   # Styles specific to Button component  
 
 ---
 
-## Contributors
+## Contributors-TEAM LLM
 Hi My name is Livjot, I'm so excited to be starting this project and learning coding! 
 - **Larry** - sort of coding
-- May is here!
+- **May** is here!
 ---
 
 ## Acknowledgments
