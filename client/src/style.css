@@ -14,3 +14,13 @@
   margin: 0 auto;
   /* Centers the circle horizontally */
 }
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  margin: 0; /* Ensures no gaps around the page */
+}
+
+body {
+  background: linear-gradient(to bottom right, #4ca1af, #c4e0e5);
+}
