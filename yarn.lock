@@ -43,7 +43,7 @@
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.26.8.tgz#821c1d35641c355284d4a870b8a4a7b0c141e367"
   integrity sha512-oH5UPLMWR3L2wEFLnFJ1TZXqHufiTKAiLfqw5zkhS4dKXLJ10yVztfil/twG8EDTA4F/tvVNw9nOl4ZMslB8rQ==
 
-"@babel/core@^7.1.0", "@babel/core@^7.11.1", "@babel/core@^7.12.3", "@babel/core@^7.16.0", "@babel/core@^7.26.0", "@babel/core@^7.7.2", "@babel/core@^7.8.0":
+"@babel/core@^7.1.0", "@babel/core@^7.11.1", "@babel/core@^7.12.3", "@babel/core@^7.16.0", "@babel/core@^7.7.2", "@babel/core@^7.8.0":
   version "7.26.9"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.26.9.tgz#71838542a4b1e49dfed353d7acbc6eb89f4a76f2"
   integrity sha512-lWBYIrF7qK5+GjY5Uy+/hEgp8OJWOD/rpy74GplYRhEauvbHDeFB8t5hPOZxCZ0Oxf4Cc36tK51/l3ymJysrKw==
@@ -814,20 +814,6 @@
   integrity sha512-9mj6rm7XVYs4mdLIpbZnHOYdpW42uoiBCTVowg7sP1thUOiANgMb4UtpRivR0pp5iL+ocvUv7X4mZgFRpJEzGw==
   dependencies:
     "@babel/plugin-transform-react-jsx" "^7.25.9"
-
-"@babel/plugin-transform-react-jsx-self@^7.25.9":
-  version "7.25.9"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-jsx-self/-/plugin-transform-react-jsx-self-7.25.9.tgz#c0b6cae9c1b73967f7f9eb2fca9536ba2fad2858"
-  integrity sha512-y8quW6p0WHkEhmErnfe58r7x0A70uKphQm8Sp8cV7tjNQwK56sNVK0M73LK3WuYmsuyrftut4xAkjjgU0twaMg==
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.25.9"
-
-"@babel/plugin-transform-react-jsx-source@^7.25.9":
-  version "7.25.9"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-jsx-source/-/plugin-transform-react-jsx-source-7.25.9.tgz#4c6b8daa520b5f155b5fb55547d7c9fa91417503"
-  integrity sha512-+iqjT8xmXhhYv4/uiYd8FNQsraMFZIfxVSqxxVSZP0WbbSAWvBXAul0m/zu+7Vv4O/3WtApy9pmaTMiumEZgfg==
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.25.9"
 
 "@babel/plugin-transform-react-jsx@^7.25.9":
   version "7.25.9"
@@ -2575,12 +2561,93 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
+"@swc/core-darwin-arm64@1.11.7":
+  version "1.11.7"
+  resolved "https://registry.yarnpkg.com/@swc/core-darwin-arm64/-/core-darwin-arm64-1.11.7.tgz#bd52d6e6ae5b7e458e3b0507bebd3b90f1b3516f"
+  integrity sha512-3+LhCP2H50CLI6yv/lhOtoZ5B/hi7Q/23dye1KhbSDeDprLTm/KfLJh/iQqwaHUponf5m8C2U0y6DD+HGLz8Yw==
+
+"@swc/core-darwin-x64@1.11.7":
+  version "1.11.7"
+  resolved "https://registry.yarnpkg.com/@swc/core-darwin-x64/-/core-darwin-x64-1.11.7.tgz#79871970698868f08c986d5ed1099dd441add24e"
+  integrity sha512-1diWpJqwX1XmOghf9ENFaeRaTtqLiqlZIW56RfOqmeZ7tPp3qS7VygWb9akptBsO5pEA5ZwNgSerD6AJlQcjAw==
+
+"@swc/core-linux-arm-gnueabihf@1.11.7":
+  version "1.11.7"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-arm-gnueabihf/-/core-linux-arm-gnueabihf-1.11.7.tgz#cf48e89c78154796a973b544d458d83e650ece64"
+  integrity sha512-MV8+hLREf0NN23NuSKemsjFaWjl/HnqdOkE7uhXTnHzg8WTwp6ddVtU5Yriv15+d/ktfLWPVAOhLHQ4gzaoa8A==
+
+"@swc/core-linux-arm64-gnu@1.11.7":
+  version "1.11.7"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-arm64-gnu/-/core-linux-arm64-gnu-1.11.7.tgz#d478d5c824565e5692c5715716d126f2d469c928"
+  integrity sha512-5GNs8ZjHQy/UTSnzzn+gm1RCUpCYo43lsxYOl8mpcnZSfxkNFVpjfylBv0QuJ5qhdfZ2iU55+v4iJCwCMtw0nA==
+
+"@swc/core-linux-arm64-musl@1.11.7":
+  version "1.11.7"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-arm64-musl/-/core-linux-arm64-musl-1.11.7.tgz#f0922a71e7e11d6c7f3942cb6ebd2864d6bbed5c"
+  integrity sha512-cTydaYBwDbVV5CspwVcCp9IevYWpGD1cF5B5KlBdjmBzxxeWyTAJRtKzn8w5/UJe/MfdAptarpqMPIs2f33YEQ==
+
+"@swc/core-linux-x64-gnu@1.11.7":
+  version "1.11.7"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-x64-gnu/-/core-linux-x64-gnu-1.11.7.tgz#dbcfa1f0327ca2c187ea61dfb7469dad1f815a7d"
+  integrity sha512-YAX2KfYPlbDsnZiVMI4ZwotF3VeURUrzD+emJgFf1g26F4eEmslldgnDrKybW7V+bObsH22cDqoy6jmQZgpuPQ==
+
+"@swc/core-linux-x64-musl@1.11.7":
+  version "1.11.7"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-x64-musl/-/core-linux-x64-musl-1.11.7.tgz#f6cc8de75f778864d8ce310e834c9a027ebb8a49"
+  integrity sha512-mYT6FTDZyYx5pailc8xt6ClS2yjKmP8jNHxA9Ce3K21n5qkKilI5M2N7NShwXkd3Ksw3F29wKrg+wvEMXTRY/A==
+
+"@swc/core-win32-arm64-msvc@1.11.7":
+  version "1.11.7"
+  resolved "https://registry.yarnpkg.com/@swc/core-win32-arm64-msvc/-/core-win32-arm64-msvc-1.11.7.tgz#9a4106abaf3a5fc1d3c909ab46288306c8047e54"
+  integrity sha512-uLDQEcv0BHcepypstyxKkNsW6KfLyI5jVxTbcxka+B2UnMcFpvoR87nGt2JYW0grO2SNZPoFz+UnoKL9c6JxpA==
+
+"@swc/core-win32-ia32-msvc@1.11.7":
+  version "1.11.7"
+  resolved "https://registry.yarnpkg.com/@swc/core-win32-ia32-msvc/-/core-win32-ia32-msvc-1.11.7.tgz#fc872ae6e716da0c90ebe6203b7d28baea449ff3"
+  integrity sha512-wiq5G3fRizdxAJVFcon7zpyfbfrb+YShuTy+TqJ4Nf5PC0ueMOXmsmeuyQGApn6dVWtGCyymYQYt77wHeQajdA==
+
+"@swc/core-win32-x64-msvc@1.11.7":
+  version "1.11.7"
+  resolved "https://registry.yarnpkg.com/@swc/core-win32-x64-msvc/-/core-win32-x64-msvc-1.11.7.tgz#164376daaf488cfa49db4ffe749d22585c984897"
+  integrity sha512-/zQdqY4fHkSORxEJ2cKtRBOwglvf/8gs6Tl4Q6VMx2zFtFpIOwFQstfY5u8wBNN2Z+PkAzyUCPoi8/cQFK8HLQ==
+
+"@swc/core@^1.10.15":
+  version "1.11.7"
+  resolved "https://registry.yarnpkg.com/@swc/core/-/core-1.11.7.tgz#f955519097d92860ae2fa5a3b45b7ba148c66834"
+  integrity sha512-ICuzjyfz8Hh3U16Mb21uCRJeJd/lUgV999GjgvPhJSISM1L8GDSB5/AMNcwuGs7gFywTKI4vAeeXWyCETUXHAg==
+  dependencies:
+    "@swc/counter" "^0.1.3"
+    "@swc/types" "^0.1.19"
+  optionalDependencies:
+    "@swc/core-darwin-arm64" "1.11.7"
+    "@swc/core-darwin-x64" "1.11.7"
+    "@swc/core-linux-arm-gnueabihf" "1.11.7"
+    "@swc/core-linux-arm64-gnu" "1.11.7"
+    "@swc/core-linux-arm64-musl" "1.11.7"
+    "@swc/core-linux-x64-gnu" "1.11.7"
+    "@swc/core-linux-x64-musl" "1.11.7"
+    "@swc/core-win32-arm64-msvc" "1.11.7"
+    "@swc/core-win32-ia32-msvc" "1.11.7"
+    "@swc/core-win32-x64-msvc" "1.11.7"
+
+"@swc/counter@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@swc/counter/-/counter-0.1.3.tgz#cc7463bd02949611c6329596fccd2b0ec782b0e9"
+  integrity sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==
+
 "@swc/helpers@^0.5.0":
   version "0.5.15"
   resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.5.15.tgz#79efab344c5819ecf83a43f3f9f811fc84b516d7"
   integrity sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==
   dependencies:
     tslib "^2.8.0"
+
+"@swc/types@^0.1.19":
+  version "0.1.19"
+  resolved "https://registry.yarnpkg.com/@swc/types/-/types-0.1.19.tgz#65d9fe81e0a1dc7e861ad698dd581abe3703a2d2"
+  integrity sha512-WkAZaAfj44kh/UFdAQcrMP1I0nwRqpt27u+08LMBYMqmQfwwMofYoMh/48NGkMMRfC4ynpfwRbJuu8ErfNloeA==
+  dependencies:
+    "@swc/counter" "^0.1.3"
 
 "@testing-library/dom@^10.4.0":
   version "10.4.0"
@@ -2638,7 +2705,7 @@
   resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-5.0.4.tgz#1a31c3d378850d2778dabb6374d036dcba4ba708"
   integrity sha512-rfT93uj5s0PRL7EzccGMs3brplhcrghnDoV26NqKhCAS1hVo+WdNsPvE/yb6ilfr5hi2MEk6d5EWJTKdxg8jVw==
 
-"@types/babel__core@^7.0.0", "@types/babel__core@^7.1.14", "@types/babel__core@^7.20.5":
+"@types/babel__core@^7.0.0", "@types/babel__core@^7.1.14":
   version "7.20.5"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.20.5.tgz#3df15f27ba85319caa07ba08d0721889bb39c017"
   integrity sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==
@@ -3086,16 +3153,12 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.3.0.tgz#d06bbb384ebcf6c505fde1c3d0ed4ddffe0aaff8"
   integrity sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==
 
-"@vitejs/plugin-react@^4.3.4":
-  version "4.3.4"
-  resolved "https://registry.yarnpkg.com/@vitejs/plugin-react/-/plugin-react-4.3.4.tgz#c64be10b54c4640135a5b28a2432330e88ad7c20"
-  integrity sha512-SCCPBJtYLdE8PX/7ZQAs1QAZ8Jqwih+0VBLum1EGqmCCQal+MIUqLCzj3ZUy8ufbC0cAM4LRlSTm7IQJwWT4ug==
+"@vitejs/plugin-react-swc@^3.8.0":
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/@vitejs/plugin-react-swc/-/plugin-react-swc-3.8.0.tgz#3af56d6dbfe3734e2970d8b9345f261353e2d676"
+  integrity sha512-T4sHPvS+DIqDP51ifPqa9XIRAz/kIvIi8oXcnOZZgHmMotgmmdxe/DD5tMFlt5nuIRzT0/QuiwmKlH0503Aapw==
   dependencies:
-    "@babel/core" "^7.26.0"
-    "@babel/plugin-transform-react-jsx-self" "^7.25.9"
-    "@babel/plugin-transform-react-jsx-source" "^7.25.9"
-    "@types/babel__core" "^7.20.5"
-    react-refresh "^0.14.2"
+    "@swc/core" "^1.10.15"
 
 "@webassemblyjs/ast@1.14.1", "@webassemblyjs/ast@^1.14.1":
   version "1.14.1"
@@ -8932,11 +8995,6 @@ react-refresh@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"
   integrity sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==
-
-react-refresh@^0.14.2:
-  version "0.14.2"
-  resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.14.2.tgz#3833da01ce32da470f1f936b9d477da5c7028bf9"
-  integrity sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==
 
 react-scripts@5.0.1:
   version "5.0.1"
