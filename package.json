@@ -1,5 +1,5 @@
 {
-  "name": "1800_202510_BBY13",
+  "name": "1800-202510-bby13",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -10,7 +10,6 @@
     "start": "yarn workspace server start"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2",
-    "vite": "^6.2.0"
+    "concurrently": "^9.1.2"
   }
 }
