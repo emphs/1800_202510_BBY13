@@ -7,14 +7,16 @@ import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import * as firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css';
 
-const config = { apiKey: "AIzaSyAMd6uOBKNaq7VjK5rAM5VDBiD3gh6kgR8",
+const config = {
+    apiKey: "AIzaSyAMd6uOBKNaq7VjK5rAM5VDBiD3gh6kgR8",
     authDomain: "aa-5607f.firebaseapp.com",
     databaseURL: "https://aa-5607f.firebaseio.com",
     projectId: "aa-5607f",
     storageBucket: "aa-5607f.firebasestorage.app",
     messagingSenderId: "87623476991",
     appId: "1:87623476991:web:bbfaf8e049cdadd0e7ceca",
-    measurementId: "G-784Z8S5HZ2" };
+    measurementId: "G-784Z8S5HZ2"
+};
 
 const app = initializeApp(config);
 const auth = getAuth(app);
@@ -27,80 +29,35 @@ ui.start('#firebaseui-auth-container', {
         'password'
     ],
     callbacks: {
-        signInSuccessWithAuthResult: (authResult) => {
+        signInSuccessWithAuthResult: async (authResult) => {
             const user = authResult.user;
-            if (authResult.additionalUserInfo.isNewUser) {
-                setDoc(doc(db, 'users', user.uid), { name: user.displayName });
-                //TO-DO! Resolve the promise and use the miracle Async function to log users into Dbase
+            const isNewUser = authResult.additionalUserInfo.isNewUser;
 
+            try {
+                if (isNewUser) {
+                    // Log user into Firestore with async/await
+                    await setDoc(doc(db, 'users', user.uid), {
+                        name: user.displayName || 'Anonymous', // Fallback if displayName is null
+                        email: user.email, // Add email since it's available
+                        createdAt: Date.now() // Optional timestamp
+                    });
+                    console.log(`New user ${user.uid} added to Firestore`);
+                } else {
+                    console.log(`Existing user ${user.uid} signed in`);
+                }
+                // Redirect only after Firestore operation completes
+                window.location.assign('/webapp.html');
+            } catch (error) {
+                console.error('Error adding user to Firestore:', error);
+                // Redirect even on error, or handle differently
+                window.location.assign('/webapp.html');
             }
-            window.location.assign('/webapp.html');
-            return false;
+
+            return false; // Prevent FirebaseUI default redirect
+        },
+        signInFailure: (error) => {
+            console.error('Sign-in failed:', error);
+            return Promise.resolve();
         }
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import firebase from 'firebase/compat/app'; // Compat layer
-// import 'firebase/compat/auth'; // Compat auth for Firebase UI
-// import * as firebaseui from 'firebaseui'; // Firebase UI
-// import {firebaseConfig} from "/src/firebase.js";
-//
-// const app = firebase.initializeApp(firebaseConfig);
-// const ui = new firebaseui.auth.AuthUI(firebase.auth());
-//
-// const uiConfig = {
-//     callbacks: {
-//         signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-//             const user = authResult.user;
-//             if (authResult.additionalUserInfo.isNewUser) {
-//                 db.collection("users").doc(user.uid).set({
-//                     name: user.displayName,
-//                     email: user.email,
-//                     country: "Canada",
-//                 }).then(function () {
-//                     console.log("New user added to firestore");
-//                     window.location.assign("webapp.html");
-//                 }).catch(function (error) {
-//                     console.log("Error adding new user: " + error);
-//                 });
-//             } else {
-//                 return true;
-//             }
-//             return false;
-//         }
-//     },
-//     // Move uiShown outside of callbacks
-//     uiShown: function () {
-//         // The widget is rendered, hide the loader
-//         document.getElementById('loader').style.display = 'none';
-//     },
-//     signInFlow: 'popup',
-//     signInSuccessUrl: 'webapp.html',
-//     signInOptions: [
-//         // Uncomment the providers you want to use
-//         firebase.auth.EmailAuthProvider.PROVIDER_ID,
-//     ],
-//     tosUrl: '<your-tos-url>',
-//     privacyPolicyUrl: '<your-privacy-policy-url>'
-// };
-//
-// // Start the FirebaseUI widget
-// ui.start('#firebaseui-auth-container', uiConfig);
