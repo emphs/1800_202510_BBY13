@@ -129,3 +129,6 @@ onSnapshot(collection(db, 'items'), (snapshot) => {
 
 // Add event listener for the "Add Item" button
 document.getElementById('addItemButton').addEventListener('click', addItem);
+
+//Dbase none-restrict to any user to CRUD
+//Discuss about architecture.
