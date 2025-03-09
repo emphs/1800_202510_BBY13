@@ -1,0 +1,52 @@
+:root {
+    --primary-color: #2C3E50;
+}
+
+body {
+    min-height: 100vh;
+    background: url("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjk2MC1uaW5nLTMwLmpwZw.jpg");
+    background-size: cover;
+    font-family: 'Segoe UI', system-ui;
+}
+a {
+    text-decoration: none;
+}
+
+.auth-container {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.auth-header {
+    padding: 2rem;
+    background: var(--primary-color);
+    color: white;
+}
+
+.bg1 {background-color: #3b5998}
+.bg2 {background-color: #1da1f2}
+.bg3 {background-color: #ea4335}
+
+
+.has-val.input + .input-focus::before {
+    width: 100%;
+}
+
+.social-icon {
+    font-size: 25px;
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin: 20px;
+}
+
+.social-icon:hover {
+    color: #fff;
+    background-color: #333333;
+}

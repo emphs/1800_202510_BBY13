@@ -59,7 +59,7 @@ Example:
 
 
 Within src/:  
-├── main.jsx         # Entry point  
+├── mainPage.jsx         # Entry point  
 ├── App.jsx          # Main component  
 ├── styles/          # Folder for CSS files  
 │   ├── main.css     # Global styles  
