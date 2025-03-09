@@ -1,26 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore, doc, setDoc } from 'firebase/firestore';
+
+import {  doc, setDoc } from 'firebase/firestore';
 import * as firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css';
+import { db, auth} from "./firebase.js";
 
-const config = {
-    apiKey: "AIzaSyAMd6uOBKNaq7VjK5rAM5VDBiD3gh6kgR8",
-    authDomain: "aa-5607f.firebaseapp.com",
-    databaseURL: "https://aa-5607f.firebaseio.com",
-    projectId: "aa-5607f",
-    storageBucket: "aa-5607f.firebasestorage.app",
-    messagingSenderId: "87623476991",
-    appId: "1:87623476991:web:bbfaf8e049cdadd0e7ceca",
-    measurementId: "G-784Z8S5HZ2"
-};
 
-const app = initializeApp(config);
-const auth = getAuth(app);
-const db = getFirestore(app);
 
 const ui = new firebaseui.auth.AuthUI(auth);
 
