@@ -16,23 +16,32 @@
  * FirebaseUI initialization to be used in a Single Page application context.
  */
 
-/**
- * @return {!Object} The FirebaseUI config.
- */
+import {  doc, setDoc } from 'firebase/firestore';
+import * as firebaseui from 'firebaseui';
+import 'firebaseui/dist/firebaseui.css';
+import { db, auth} from "./firebase.js";
+
 function getUiConfig() {
     return {
         'callbacks': {
             // Called when the user has been successfully signed in.
-            'signInSuccessWithAuthResult': function(authResult, redirectUrl) {
-                if (authResult.user) {
-                    handleSignedInUser(authResult.user);
+            'signInSuccessWithAuthResult': async (authResult, redirectUrl) => {
+                const user = authResult.user;
+                const isNewUser = authResult.additionalUserInfo?.isNewUser;
+
+                console.log(user)
+                if (user) {
+                    handleSignedInUser(user);
                 }
-                if (authResult.additionalUserInfo) {
-                    document.getElementById('is-new-user').textContent =
-                        authResult.additionalUserInfo.isNewUser ?
-                            'New User' : 'Existing User';
+                if (isNewUser) {
+                    await setDoc(doc(db, 'users', user.uid), {
+                        name: user.displayName || 'None',
+                        email: user.email,
+                        createdAt: Date.now()
+                    });
+                    console.log(`New user ${user.uid} added to Firestore`);
+
                 }
-                // Do not redirect.
                 return false;
             }
         },
@@ -73,13 +82,13 @@ function getUiConfig() {
         // Terms of service url.
         'tosUrl': 'https://www.google.com',
         // Privacy policy url.
-        'privacyPolicyUrl': 'https://www.google.com',
-        'credentialHelper': CLIENT_ID && CLIENT_ID != 'YOUR_OAUTH_CLIENT_ID' ?
-            firebaseui.auth.CredentialHelper.GOOGLE_YOLO :
-            firebaseui.auth.CredentialHelper.NONE,
-        'adminRestrictedOperation': {
-            status: 'false'
-        }
+        'privacyPolicyUrl': 'https://#',
+        // 'credentialHelper': CLIENT_ID && CLIENT_ID != 'YOUR_OAUTH_CLIENT_ID' ?
+        //     firebaseui.auth.CredentialHelper.GOOGLE_YOLO :
+        //     firebaseui.auth.CredentialHelper.NONE,
+        // 'adminRestrictedOperation': {
+        //     status: 'false'
+        // }
     };
 }
 
@@ -99,23 +108,6 @@ function getWidgetUrl() {
         getAdminRestrictedOperationStatus();
 }
 
-
-/**
- * Redirects to the FirebaseUI widget.
- */
-let signInWithRedirect = function() {
-    window.location.assign(getWidgetUrl());
-};
-
-
-/**
- * Open a popup with the FirebaseUI widget.
- */
-let signInWithPopup = function() {
-    window.open(getWidgetUrl(), 'Sign In', 'width=985,height=735');
-};
-
-
 /**
  * Displays the UI for a signed in user.
  * @param {!firebase.User} user
@@ -126,21 +118,6 @@ let handleSignedInUser = function(user) {
     document.getElementById('name').textContent = user.displayName;
     document.getElementById('email').textContent = user.email;
     document.getElementById('phone').textContent = user.phoneNumber;
-    if (user.photoURL) {
-        let photoURL = user.photoURL;
-        // Append size to the photo URL for Google hosted images to avoid requesting
-        // the image with its original resolution (using more bandwidth than needed)
-        // when it is going to be presented in smaller size.
-        if ((photoURL.indexOf('googleusercontent.com') != -1) ||
-            (photoURL.indexOf('ggpht.com') != -1)) {
-            photoURL = photoURL + '?sz=' +
-                document.getElementById('photo').clientHeight;
-        }
-        document.getElementById('photo').src = photoURL;
-        document.getElementById('photo').style.display = 'block';
-    } else {
-        document.getElementById('photo').style.display = 'none';
-    }
 };
 
 
@@ -179,28 +156,16 @@ let deleteAccount = function() {
     });
 };
 
-
-/**
- * Handles when the user changes the reCAPTCHA, email signInMethod or email
- * disableSignUp config.
- */
-function handleConfigChange() {
-    let newRecaptchaValue = document.querySelector(
-        'input[name="recaptcha"]:checked').value;
-    let newEmailSignInMethodValue = document.querySelector(
-        'input[name="emailSignInMethod"]:checked').value;
-    let currentDisableSignUpStatus =
-        document.getElementById("email-disableSignUp-status").checked;
-    let currentAdminRestrictedOperationStatus =
-        document.getElementById("admin-restricted-operation-status").checked;
-    location.replace(
-        location.pathname + '#recaptcha=' + newRecaptchaValue +
-        '&emailSignInMethod=' + newEmailSignInMethodValue +
-        '&disableEmailSignUpStatus=' + currentDisableSignUpStatus +
-        '&adminRestrictedOperationStatus=' +
-        currentAdminRestrictedOperationStatus);
-    // Reset the inline widget so the config changes are reflected.
-    ui.reset();
-    ui.start('#firebaseui-container', getUiConfig());
-}
-
+window.addEventListener('load', () => {
+    {
+        document.getElementById('sign-out').addEventListener('click', function() {
+            firebase.auth().signOut();
+        });
+        document.getElementById('delete-account').addEventListener('click', function() {
+            deleteAccount();
+        });
+        document.getElementById('nav-web-app').addEventListener('click', function() {
+            window.location.assign('/webapp.html');
+        });
+    }
+});
