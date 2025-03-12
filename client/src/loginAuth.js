@@ -29,8 +29,6 @@ ui.start('#firebaseui-auth-container', {
                         createdAt: Date.now() // Optional timestamp
                     });
                     console.log(`New user ${user.uid} added to Firestore`);
-                } else {
-                    console.log(`Existing user ${user.uid} signed in`);
                 }
                 // Redirect only after Firestore operation completes
                 window.location.assign('/webapp.html');
