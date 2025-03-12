@@ -60,9 +60,6 @@ function getUiConfig() {
                 // Whether the display name should be displayed in Sign Up page.
                 requireDisplayName: true,
                 signInMethod: "password", // "emailLink"
-                disableSignUp: {
-                    status: 'false'
-                }
             },
             {
                 provider: 'microsoft.com',
