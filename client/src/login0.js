@@ -16,7 +16,7 @@
  * FirebaseUI initialization to be used in a Single Page application context.
  */
 
-import {  doc, setDoc } from 'firebase/firestore';
+import {addDoc, collection, doc, getFirestore, serverTimestamp, setDoc} from 'firebase/firestore';
 import * as firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css';
 import { db, auth} from "./firebase.js";
@@ -33,13 +33,29 @@ function getUiConfig() {
                 if (user) {
                     handleSignedInUser(user);
                 }
+                console.log("is new?", isNewUser);
                 if (isNewUser) {
+                    let res = addDoc(collection(db, 'users'), {
+                        name: name,
+                        display_name: user.displayName || 'None',
+                        posts: [],
+                        email: user.email,
+                        email_verified: user.emailVerified,
+                        cellphone: user.phoneNumber,
+                        provider: user.providerId,
+                        create_at: serverTimestamp(),
+                        last_login_at: serverTimestamp(),
+                    });
+                    console.log(res);
+                    let res2 = await res;
+                    console.log(res2);
+                    console.log(`New user ${user.uid} added to Firestore`);
+
                     await setDoc(doc(db, 'users', user.uid), {
                         name: user.displayName || 'None',
                         email: user.email,
                         createdAt: Date.now()
                     });
-                    console.log(`New user ${user.uid} added to Firestore`);
 
                 }
                 return false;

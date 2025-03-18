@@ -1,3 +1,4 @@
+
 :root {
     --primary-color: #2C3E50;
 }
@@ -29,6 +30,84 @@ a {
 .bg2 {background-color: #1da1f2}
 .bg3 {background-color: #ea4335}
 
+input {
+    outline: none;
+    border: none;
+}
+input:focus::placeholder {
+    color:transparent;
+}
+
+button {
+    outline: none !important;
+    border: none;
+    background: transparent;
+}
+.input-container {
+    width: 100%;
+    position: relative;
+    border-bottom: 2px solid #d9d9d9;
+}
+
+.input-label {
+    font-size: 14px;
+    color: #524e4e;
+    line-height: 1.5;
+    padding-left: 7px;
+}
+
+.input {
+    font-size: 16px;
+    color: #524e4e;
+    line-height: 1.2;
+    display: block;
+    width: 100%;
+    height: 55px;
+    background: transparent;
+    padding: 0 7px 0 43px;
+}
+
+.input-focus {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.input-focus::after {
+    content: attr(data-symbol);
+    font-family: Material-Design-Iconic-Font;
+    color: #adadad;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    height: calc(100% - 20px);
+    bottom: 0;
+    left: 0;
+    padding-left: 13px;
+    padding-top: 3px;
+}
+
+.input-focus::before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #7f7f7f;
+    transition: all 0.4s;
+}
+
+.input:focus + .input-focus::before {
+    width: 100%;
+}
 
 .has-val.input + .input-focus::before {
     width: 100%;
