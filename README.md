@@ -82,7 +82,10 @@ Example:
 - Weather data sourced from [OpenWeatherMap](https://openweathermap.org/).
 - Code snippets for ___ algoirthm were adapted from resources such as [Stack Overflow](https://stackoverflow.com/) and [MDN Web Docs](https://developer.mozilla.org/).
 - Icons sourced from [FontAwesome](https://fontawesome.com/) and images from [Unsplash](https://unsplash.com/).
-
+- Icons for mainpage from [Flaticon](https://www.flaticon.com/icon-fonts-most-downloaded?weight=bold&type=uicon).
+- Logo sourced from [Flaticon](https://www.flaticon.com/free-icon/hug_7081266).
+- Hero sourced from [VistingAngels](https://www.visitingangels.com/articles/outdoor-activities-for-seniors-caregivers/200)
+- About Us Card #3 sourced from [liveinhomecare](https://www.liveinhomecare.com/helping-the-elderly-july-2021-2/helping-the-elderly/).
 ---
 
 ## Limitations and Future Work
