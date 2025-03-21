@@ -1,0 +1,117 @@
+/* Updated dashboard.css for desktop and mobile layouts */
+
+#container {
+  max-width: none;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#user-signed-in {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.dashboard-content {
+  flex-grow: 1;
+  display: flex;
+}
+
+.left-panel {
+  width: 33%;
+  background-color: #f8f9fa;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-panel {
+  width: 67%;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.left-panel .card {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.left-panel .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.left-panel textarea {
+  flex-grow: 1;
+  resize: vertical;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .header-row {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .header-buttons-left,
+  .header-buttons-right {
+    display: none; /* Hide desktop buttons on mobile */
+  }
+
+  .header-center {
+    width: 100%;
+    text-align: center;
+  }
+
+  .mobile-buttons {
+    display: flex !important; /* Override hidden class */
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .mobile-buttons .btn {
+    flex: 1;
+    margin: 0 5px;
+    font-size: 14px; /* Adjust size for mobile */
+  }
+
+  .dashboard-content {
+    flex-direction: column;
+  }
+
+  .left-panel {
+    width: 100%;
+    padding: 10px;
+    background-color: #fff; /* Reset background for mobile */
+  }
+
+  .right-panel {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .left-panel textarea {
+    min-height: 100px; /* Set a reasonable height for mobile */
+    flex-grow: 0; /* Prevent over-expansion on mobile */
+  }
+}

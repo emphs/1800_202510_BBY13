@@ -23,21 +23,24 @@ async function renderItems() {
 
     try {
         const querySnapshot = await getDocs(collection(db, 'items'));
+        itemsList.innerHTML = '<h2>Items</h2>';
         querySnapshot.forEach((docSnapshot) => {
             const data = docSnapshot.data();
             if (data.userId === user.uid) {
                 const div = document.createElement('div');
-                div.className = 'item';
+                div.className = 'item mb-3 p-2 border';
                 div.innerHTML = `
                     <strong>${data.name}</strong>
                     <p>${data.description || ''}</p>
                 `;
                 const editButton = document.createElement('button');
                 editButton.textContent = 'Edit';
+                editButton.className = 'btn btn-sm btn-primary me-2';
                 editButton.addEventListener('click', () => updateItem(docSnapshot.id));
 
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Delete';
+                deleteButton.className = 'btn btn-sm btn-danger';
                 deleteButton.addEventListener('click', () => deleteItem(docSnapshot.id));
 
                 div.appendChild(editButton);
@@ -52,12 +55,17 @@ async function renderItems() {
 
 // Add new item
 async function addItem() {
-    const name = document.getElementById('name').value;
+    const name = document.getElementById('item-name').value;
     const description = document.getElementById('description').value;
     const user = auth.currentUser;
 
     if (!user) {
         console.error("No user signed in");
+        return;
+    }
+
+    if (!name) {
+        alert("Please enter a name");
         return;
     }
 
@@ -68,11 +76,12 @@ async function addItem() {
             userId: user.uid,
             timestamp: serverTimestamp()
         });
-        document.getElementById('name').value = '';
+        document.getElementById('item-name').value = '';
         document.getElementById('description').value = '';
         await renderItems();
     } catch (error) {
         console.error("Error adding item: ", error);
+        alert("Failed to add item: " + error.message);
     }
 }
 
@@ -98,6 +107,7 @@ async function updateItem(id) {
             await renderItems();
         } catch (error) {
             console.error("Error updating item: ", error);
+            alert("Failed to update item: " + error.message);
         }
     }
 }
@@ -117,18 +127,40 @@ async function deleteItem(id) {
             await renderItems();
         } catch (error) {
             console.error("Error deleting item: ", error);
+            alert("Failed to delete item: " + error.message);
         }
     }
 }
 
-// Initial render and setup
-renderItems();
-onSnapshot(collection(db, 'items'), (snapshot) => {
-    renderItems();
+// Setup real-time listener and initial render
+function setupDashboard() {
+    const user = auth.currentUser;
+    if (user) {
+        renderItems();
+        const unsubscribe = onSnapshot(collection(db, 'items'), (snapshot) => {
+            renderItems();
+        });
+        return unsubscribe;
+    }
+}
+
+// Add event listeners
+document.getElementById('addItemButton').addEventListener('click', addItem);
+document.getElementById('nav-web-app').addEventListener('click', () => {
+    window.location.assign('/webapp.html');
 });
 
-// Add event listener for the "Add Item" button
-document.getElementById('addItemButton').addEventListener('click', addItem);
-
-//Dbase none-restrict to any user to CRUD
-//Discuss about architecture.
+// Listen to auth state changes
+let unsubscribe = null;
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        if (unsubscribe) unsubscribe();
+        unsubscribe = setupDashboard();
+    } else {
+        if (unsubscribe) {
+            unsubscribe();
+            unsubscribe = null;
+        }
+        renderItems();
+    }
+});
