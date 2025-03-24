@@ -2,13 +2,100 @@ import { app, db, auth } from "/src/firebase.js";
 import {
     collection,
     getDocs,
+    getDoc,
     addDoc,
     doc,
     updateDoc,
+    arrayUnion,
     deleteDoc,
     onSnapshot,
     serverTimestamp
 } from 'firebase/firestore';
+
+
+async function pageUpdateBookmark(bookmarks) {
+
+    console.log(bookmarks);
+
+    if (bookmarks) {
+        let cards = document.querySelectorAll('.item');
+
+        cards.forEach(card => {
+            let cStrong = card.querySelector('strong').textContent;
+
+            let icon = card.querySelector('.bookmark-btn')?.querySelector('i');
+
+            if (bookmarks.includes(cStrong)) {
+                icon?.classList.add('text-warning')
+            } else {
+                icon?.classList.remove('text-warning');
+                icon?.classList.remove('fa-star-filled');
+            }
+
+        });
+    }
+}
+
+async function bookmarkOnclick(e) {
+
+    const user = auth.currentUser;
+
+    console.log(e)
+    console.log(user)
+    console.log(db)
+
+    let userDoc = await getDoc(doc(db, "users", user.uid));
+
+    console.log(userDoc)
+
+    if (userDoc.exists) {
+        let userData = userDoc.data();
+        let bookmarks = userData.bookmark || [];
+
+        let cardTitle = e.querySelector("strong").textContent;
+        if (bookmarks.includes(cardTitle)) {
+            bookmarks = bookmarks.filter(item => item !== cardTitle);
+        } else {
+            bookmarks.push(cardTitle);
+        }
+
+        console.log(bookmarks)
+        await updateDoc(doc(db, 'users', user.uid), {
+            bookmark: bookmarks
+        });
+
+        await pageUpdateBookmark(bookmarks);
+    }
+}
+
+
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'a') {
+        console.log(233)
+        let item = document.createElement("div");
+        item.classList.add("item");
+        item.classList.add("mb-3");
+        item.classList.add("p-2");
+        item.classList.add("border");
+        item.classList.add((Math.random() + 1).toString(36).substring(7));
+        item.innerHTML = `
+                <strong>dcwe</strong>
+                <p>wqx</p>
+                <button class="btn btn-sm btn-primary me-2">Edit</button>
+                <button class="btn btn-sm btn-danger">Delete</button>
+                <button class="btn btn-sm btn-light bookmark-btn">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </button>
+            `;
+
+        item.querySelector('i').addEventListener('click', () => {
+            bookmarkOnclick(item);
+        });
+        document.getElementById('itemsList').appendChild(item);
+    }
+});
+
+
 
 // Function to render items
 async function renderItems() {
@@ -164,3 +251,4 @@ auth.onAuthStateChanged((user) => {
         renderItems();
     }
 });
+
