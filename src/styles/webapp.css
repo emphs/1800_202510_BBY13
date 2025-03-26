@@ -1,0 +1,60 @@
+/* Ensure the body and html take full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Make container-fluid take full height minus nav-bar */
+  .container-fluid {
+    height: 100vh;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Navigation bar styling */
+  .nav-bar {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  /* Items container styling */
+  #items-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 15px;
+  }
+  
+  /* Card styling */
+  .card {
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 576px) {
+    .nav-bar {
+      padding: 10px;
+    }
+    
+    #items-container {
+      padding: 10px;
+    }
+    
+    .card-body {
+      padding: 0.75rem;
+    }
+    
+    .card-title {
+      font-size: 1rem;
+    }
+    
+    .card-text {
+      font-size: 0.875rem;
+    }
+  }
