@@ -6,96 +6,10 @@ import {
     addDoc,
     doc,
     updateDoc,
-    arrayUnion,
     deleteDoc,
     onSnapshot,
     serverTimestamp
 } from 'firebase/firestore';
-
-
-async function pageUpdateBookmark(bookmarks) {
-
-    console.log(bookmarks);
-
-    if (bookmarks) {
-        let cards = document.querySelectorAll('.item');
-
-        cards.forEach(card => {
-            let cStrong = card.querySelector('strong').textContent;
-
-            let icon = card.querySelector('.bookmark-btn')?.querySelector('i');
-
-            if (bookmarks.includes(cStrong)) {
-                icon?.classList.add('text-warning')
-            } else {
-                icon?.classList.remove('text-warning');
-                icon?.classList.remove('fa-star-filled');
-            }
-
-        });
-    }
-}
-
-async function bookmarkOnclick(e) {
-
-    const user = auth.currentUser;
-
-    console.log(e)
-    console.log(user)
-    console.log(db)
-
-    let userDoc = await getDoc(doc(db, "users", user.uid));
-
-    console.log(userDoc)
-
-    if (userDoc.exists) {
-        let userData = userDoc.data();
-        let bookmarks = userData.bookmark || [];
-
-        let cardTitle = e.querySelector("strong").textContent;
-        if (bookmarks.includes(cardTitle)) {
-            bookmarks = bookmarks.filter(item => item !== cardTitle);
-        } else {
-            bookmarks.push(cardTitle);
-        }
-
-        console.log(bookmarks)
-        await updateDoc(doc(db, 'users', user.uid), {
-            bookmark: bookmarks
-        });
-
-        await pageUpdateBookmark(bookmarks);
-    }
-}
-
-
-document.addEventListener('keydown', function (event) {
-    if (event.key === 'a') {
-        console.log(233)
-        let item = document.createElement("div");
-        item.classList.add("item");
-        item.classList.add("mb-3");
-        item.classList.add("p-2");
-        item.classList.add("border");
-        item.classList.add((Math.random() + 1).toString(36).substring(7));
-        item.innerHTML = `
-                <strong>dcwe</strong>
-                <p>wqx</p>
-                <button class="btn btn-sm btn-primary me-2">Edit</button>
-                <button class="btn btn-sm btn-danger">Delete</button>
-                <button class="btn btn-sm btn-light bookmark-btn">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                </button>
-            `;
-
-        item.querySelector('i').addEventListener('click', () => {
-            bookmarkOnclick(item);
-        });
-        document.getElementById('itemsList').appendChild(item);
-    }
-});
-
-
 
 // Function to render items
 async function renderItems() {
@@ -137,6 +51,52 @@ async function renderItems() {
         });
     } catch (error) {
         console.error("Error getting items: ", error);
+    }
+}
+
+// Function to render bookmarked items
+async function renderBookmarkedItems() {
+    const bookmarkedItemsContainer = document.getElementById('bookmarked-items');
+    bookmarkedItemsContainer.innerHTML = '';
+    const user = auth.currentUser;
+
+    if (!user) return;
+
+    try {
+        const userDocRef = doc(db, 'users', user.uid);
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            const bookmarks = userData.bookmarks || [];
+
+            if (bookmarks.length === 0) {
+                bookmarkedItemsContainer.innerHTML = '<p>No bookmarked items yet.</p>';
+                return;
+            }
+
+            bookmarkedItemsContainer.innerHTML = ''; // Clear previous items
+            for (const itemId of bookmarks) {
+                const itemDoc = await getDoc(doc(db, 'items', itemId));
+                if (itemDoc.exists()) {
+                    const itemData = itemDoc.data();
+                    const div = document.createElement('div');
+                    div.className = 'item mb-3 p-2 border';
+                    div.innerHTML = `
+                        <strong>${itemData.name}</strong>
+                        <p>${itemData.description || ''}</p>
+                    `;
+                    bookmarkedItemsContainer.appendChild(div);
+                } else {
+                    console.warn(`Item ${itemId} not found in 'items' collection`);
+                }
+            }
+        } else {
+            bookmarkedItemsContainer.innerHTML = '<p>No bookmarks available.</p>';
+        }
+    } catch (error) {
+        console.error("Error fetching bookmarked items: ", error);
+        bookmarkedItemsContainer.innerHTML = '<p>Error loading bookmarks.</p>';
     }
 }
 
@@ -219,36 +179,60 @@ async function deleteItem(id) {
     }
 }
 
-// Setup real-time listener and initial render
+// Setup dashboard with real-time listeners
 function setupDashboard() {
     const user = auth.currentUser;
-    if (user) {
+    if (!user) return;
+
+    // Initial render
+    renderItems();
+    renderBookmarkedItems();
+
+    // Real-time listeners
+    const unsubscribeItems = onSnapshot(collection(db, 'items'), () => {
         renderItems();
-        const unsubscribe = onSnapshot(collection(db, 'items'), (snapshot) => {
-            renderItems();
-        });
-        return unsubscribe;
+    });
+    const unsubscribeBookmarks = onSnapshot(doc(db, 'users', user.uid), () => {
+        renderBookmarkedItems();
+    });
+
+    // Add event listeners only when user is signed in
+    document.getElementById('addItemButton').addEventListener('click', addItem);
+    document.getElementById('nav-web-app').addEventListener('click', () => {
+        window.location.assign('/webapp.html');
+    });
+
+    return () => {
+        unsubscribeItems();
+        unsubscribeBookmarks();
+    };
+}
+
+// Initialize dashboard
+let unsubscribe = null;
+function init() {
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            if (unsubscribe) unsubscribe();
+            unsubscribe = setupDashboard();
+        } else {
+            if (unsubscribe) {
+                unsubscribe();
+                unsubscribe = null;
+            }
+            document.getElementById('loaded').classList.remove('hidden');
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('user-signed-in').classList.add('hidden');
+            document.getElementById('user-signed-out').classList.remove('hidden');
+        }
+    });
+
+    // Check initial auth state and render immediately if signed in
+    if (auth.currentUser) {
+        if (unsubscribe) unsubscribe();
+        unsubscribe = setupDashboard();
     }
 }
 
-// Add event listeners
-document.getElementById('addItemButton').addEventListener('click', addItem);
-document.getElementById('nav-web-app').addEventListener('click', () => {
-    window.location.assign('/webapp.html');
-});
-
-// Listen to auth state changes
-let unsubscribe = null;
-auth.onAuthStateChanged((user) => {
-    if (user) {
-        if (unsubscribe) unsubscribe();
-        unsubscribe = setupDashboard();
-    } else {
-        if (unsubscribe) {
-            unsubscribe();
-            unsubscribe = null;
-        }
-        renderItems();
-    }
-});
-
+// Start the application
+init();
