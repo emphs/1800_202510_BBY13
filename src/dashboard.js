@@ -8,13 +8,14 @@ import {
     updateDoc,
     deleteDoc,
     onSnapshot,
-    serverTimestamp
+    serverTimestamp,
+    arrayRemove
 } from 'firebase/firestore';
 
 // Function to render items
 async function renderItems() {
     const itemsList = document.getElementById('itemsList');
-    itemsList.innerHTML = '<h2>Items</h2>';
+    itemsList.innerHTML = '<h5 class="card-title">Your Created Items</h5>';
     const user = auth.currentUser;
 
     if (!user) {
@@ -24,10 +25,11 @@ async function renderItems() {
 
     try {
         const querySnapshot = await getDocs(collection(db, 'items'));
-        itemsList.innerHTML = '<h2>Items</h2>';
+        let hasItems = false;
         querySnapshot.forEach((docSnapshot) => {
             const data = docSnapshot.data();
             if (data.userId === user.uid) {
+                hasItems = true;
                 const div = document.createElement('div');
                 div.className = 'item mb-3 p-2 border';
                 div.innerHTML = `
@@ -49,15 +51,40 @@ async function renderItems() {
                 itemsList.appendChild(div);
             }
         });
+        if (!hasItems) {
+            itemsList.innerHTML += '<p>No items created yet.</p>';
+        }
     } catch (error) {
         console.error("Error getting items: ", error);
+        itemsList.innerHTML += '<p>Error loading items.</p>';
+    }
+}
+
+// Function to remove a bookmark
+async function removeBookmark(itemId) {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+        const userDocRef = doc(db, 'users', user.uid);
+        await updateDoc(userDocRef, {
+            bookmarks: arrayRemove(itemId)
+        });
+        // The onSnapshot listener will automatically trigger renderBookmarkedItems
+    } catch (error) {
+        console.error("Error removing bookmark: ", error);
+        alert("Failed to remove bookmark: " + error.message);
     }
 }
 
 // Function to render bookmarked items
 async function renderBookmarkedItems() {
     const bookmarkedItemsContainer = document.getElementById('bookmarked-items');
-    bookmarkedItemsContainer.innerHTML = '';
+    const contentDiv = bookmarkedItemsContainer.querySelector('.card-body');
+    // Clear existing content except the title
+    const title = contentDiv.querySelector('.card-title');
+    contentDiv.innerHTML = '';
+    contentDiv.appendChild(title); // Re-append the title
     const user = auth.currentUser;
 
     if (!user) return;
@@ -71,11 +98,10 @@ async function renderBookmarkedItems() {
             const bookmarks = userData.bookmarks || [];
 
             if (bookmarks.length === 0) {
-                bookmarkedItemsContainer.innerHTML = '<p>No bookmarked items yet.</p>';
+                contentDiv.innerHTML += '<p>No bookmarked items yet.</p>';
                 return;
             }
 
-            bookmarkedItemsContainer.innerHTML = ''; // Clear previous items
             for (const itemId of bookmarks) {
                 const itemDoc = await getDoc(doc(db, 'items', itemId));
                 if (itemDoc.exists()) {
@@ -86,17 +112,22 @@ async function renderBookmarkedItems() {
                         <strong>${itemData.name}</strong>
                         <p>${itemData.description || ''}</p>
                     `;
-                    bookmarkedItemsContainer.appendChild(div);
+                    const deleteBookmarkButton = document.createElement('button');
+                    deleteBookmarkButton.textContent = 'Delete Bookmark';
+                    deleteBookmarkButton.className = 'btn btn-sm btn-warning';
+                    deleteBookmarkButton.addEventListener('click', () => removeBookmark(itemId));
+                    div.appendChild(deleteBookmarkButton);
+                    contentDiv.appendChild(div);
                 } else {
                     console.warn(`Item ${itemId} not found in 'items' collection`);
                 }
             }
         } else {
-            bookmarkedItemsContainer.innerHTML = '<p>No bookmarks available.</p>';
+            contentDiv.innerHTML += '<p>No bookmarks available.</p>';
         }
     } catch (error) {
         console.error("Error fetching bookmarked items: ", error);
-        bookmarkedItemsContainer.innerHTML = '<p>Error loading bookmarks.</p>';
+        contentDiv.innerHTML += '<p>Error loading bookmarks.</p>';
     }
 }
 
@@ -198,7 +229,7 @@ function setupDashboard() {
 
     // Add event listeners only when user is signed in
     document.getElementById('addItemButton').addEventListener('click', addItem);
-    document.getElementById('nav-web-app').addEventListener('click', () => {
+    document.getElementById('nav-web-app-mobile').addEventListener('click', () => {
         window.location.assign('/webapp.html');
     });
 

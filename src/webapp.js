@@ -1,5 +1,5 @@
 import { auth, db } from './firebase.js';
-import { collection, getDocs, doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc, updateDoc, arrayUnion, setDoc } from 'firebase/firestore';
 
 // Constants
 const GRID_SIZE = 16; // 4x4 grid
@@ -60,6 +60,7 @@ const bookmarkItem = async (itemId, itemName) => {
     const userDoc = await getDoc(userDocRef);
 
     if (userDoc.exists()) {
+      // Document exists, update it
       const userData = userDoc.data();
       const bookmarks = userData.bookmarks || [];
 
@@ -72,8 +73,8 @@ const bookmarkItem = async (itemId, itemName) => {
         showNotification(`"${itemName}" is already bookmarked.`, 'info');
       }
     } else {
-      // Create user document if it doesn't exist
-      await updateDoc(userDocRef, {
+      // Document doesn't exist, create it with the bookmark
+      await setDoc(userDocRef, {
         bookmarks: [itemId]
       });
       showNotification(`"${itemName}" added to bookmarks!`);

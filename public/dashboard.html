@@ -42,7 +42,6 @@
       <!-- Dashboard View -->
       <div id="user-signed-in" class="hidden">
         <div class="row mb-4 header-row">
-
           <div class="col d-flex justify-content-center header-center">
             <div class="col-auto text-center">
               <h2>Welcome, <span id="user-name"></span></h2>
@@ -58,7 +57,7 @@
 
         <div class="dashboard-content">
           <div class="left-panel">
-            <div class="card">
+            <div class="card mb-3">
               <div class="card-body">
                 <h5 class="card-title">Create new Job</h5>
                 <div class="mb-3">
@@ -68,11 +67,17 @@
                 <button id="addItemButton" class="btn btn-primary mt-2">Create Job</button>
               </div>
             </div>
+            <div class="card" id="bookmarked-items">
+              <div class="card-body">
+                <h5 class="card-title">Bookmarked Items</h5>
+                <!-- Bookmarked items will be rendered here -->
+              </div>
+            </div>
           </div>
           <div class="right-panel">
             <div id="itemsList" class="card">
               <div class="card-body">
-                <!-- Items will be rendered here -->
+                <!-- Created items will be rendered here -->
               </div>
             </div>
           </div>
