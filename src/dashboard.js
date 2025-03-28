@@ -70,7 +70,6 @@ async function removeBookmark(itemId) {
         await updateDoc(userDocRef, {
             bookmarks: arrayRemove(itemId)
         });
-        // The onSnapshot listener will automatically trigger renderBookmarkedItems
     } catch (error) {
         console.error("Error removing bookmark: ", error);
         alert("Failed to remove bookmark: " + error.message);
@@ -81,10 +80,9 @@ async function removeBookmark(itemId) {
 async function renderBookmarkedItems() {
     const bookmarkedItemsContainer = document.getElementById('bookmarked-items');
     const contentDiv = bookmarkedItemsContainer.querySelector('.card-body');
-    // Clear existing content except the title
     const title = contentDiv.querySelector('.card-title');
     contentDiv.innerHTML = '';
-    contentDiv.appendChild(title); // Re-append the title
+    contentDiv.appendChild(title);
     const user = auth.currentUser;
 
     if (!user) return;
@@ -108,14 +106,32 @@ async function renderBookmarkedItems() {
                     const itemData = itemDoc.data();
                     const div = document.createElement('div');
                     div.className = 'item mb-3 p-2 border';
-                    div.innerHTML = `
+
+                    // Create clickable content
+                    const clickableContent = document.createElement('div');
+                    clickableContent.className = 'clickable-content';
+                    clickableContent.style.cursor = 'pointer';
+                    clickableContent.innerHTML = `
                         <strong>${itemData.name}</strong>
                         <p>${itemData.description || ''}</p>
                     `;
+                    clickableContent.addEventListener('click', (e) => {
+                        // Prevent navigation if clicking the delete button
+                        if (e.target.tagName !== 'BUTTON') {
+                            window.location.href = `/readmore.html?itemId=${itemId}`;
+                        }
+                    });
+
+                    // Delete Bookmark button
                     const deleteBookmarkButton = document.createElement('button');
                     deleteBookmarkButton.textContent = 'Delete Bookmark';
-                    deleteBookmarkButton.className = 'btn btn-sm btn-warning';
-                    deleteBookmarkButton.addEventListener('click', () => removeBookmark(itemId));
+                    deleteBookmarkButton.className = 'btn btn-sm btn-warning mt-2';
+                    deleteBookmarkButton.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent triggering the clickable content
+                        removeBookmark(itemId);
+                    });
+
+                    div.appendChild(clickableContent);
                     div.appendChild(deleteBookmarkButton);
                     contentDiv.appendChild(div);
                 } else {

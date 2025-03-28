@@ -4,33 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Read More</title>
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="/src/styles/webapp.css" />
+  <!-- Bootstrap CSS will be imported via JS -->
 </head>
 <body>
-  <div class="container mt-5">
-    <h1>Read More</h1>
-    <p>Item ID: <span id="item-id"></span></p>
-    <button id="back-to-webapp" class="btn btn-secondary">Back to Web App</button>
+<div class="container mt-5">
+  <h1 id="item-name">Read More</h1>
+  <p><strong>Item ID:</strong> <span id="item-id"></span></p>
+  <p><strong>Description:</strong> <span id="item-description">Loading...</span></p>
+
+  <div class="mt-4">
+    <h3>Comments</h3>
+    <div id="comments-container" class="mb-3">
+      <!-- Comments will be rendered here -->
+    </div>
+    <div class="input-group">
+      <textarea id="comment-input" class="form-control" placeholder="Add a comment..." rows="2"></textarea>
+      <button id="submit-comment" class="btn btn-primary">Submit</button>
+    </div>
   </div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  
-  <script>
-    // Display item ID from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const itemId = urlParams.get('itemId');
-    document.getElementById('item-id').textContent = itemId || 'Not specified';
+  <button id="back-to-webapp" class="btn btn-secondary mt-3">Back to Web App</button>
+</div>
 
-    // Back button
-    document.getElementById('back-to-webapp').addEventListener('click', () => {
-      window.location.href = '/webapp.html';
-    });
-  </script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<script type="module" src="/src/readmore.js"></script>
 </body>
 </html>

@@ -1,0 +1,12 @@
+.comment {
+    background-color: #f8f9fa;
+}
+
+#comments-container {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.container {
+    max-width: 800px;
+}
