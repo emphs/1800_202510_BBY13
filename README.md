@@ -1,34 +1,27 @@
-
-
-
 # TogetherNow
 
-
 ## Overview
-**BBY13-Comp1800.**  
-Summarize your project's purpose, problem solved, key features, user benefits, development context, and main technologies used.
 
-Example:
+**BBY13-Comp1800.**
+Our project aim to provide local community with opportunity to help elderly people by displaying various job posting.  
 
-This client-side JavaScript web application provides real-time weather updates for cities worldwide. It simplifies accessing weather information through an intuitive mobile-first interface, allowing users to input a city name and receive data on temperature, humidity, and conditions.
-
-Developed for the [Course Name] course, applying User-Centred Design practices, agile project management processes, integrating a weather API, and Firebase backend services.
+Developed for the BCIT COMP1800 course, applying User-Centred Design practices, agile project management processes,and Firebase backend services.
 
 ---
 
 ## Features
 
 Example:
-- Real-time weather updates for any city.
+
+- User Dashboard to manage job posting
 - Responsive design for desktop and mobile.
-- Displays temperature, humidity, and weather conditions.
+- Webapp to fetch other people's job posting
 
 ---
 
 ## Technologies Used
 
-Example:
-- **Frontend**: HTML, CSS, JavaScript, React
+- **Frontend**: HTML, CSS, JavaScript, Bootstrap
 - **Backend**: Firebase for hosting
 - **Database**: Firestore
 - **User_Auth**: Firebase authentication
@@ -38,9 +31,10 @@ Example:
 ## Usage
 
 Example:
-1. Input 'yarn run dev' in terminal under project root and visit `http://localhost:5173`.
-2. Enter the name of the city in the search bar and press enter.
-3. View the weather information displayed on the screen.
+
+1. Input 'yarn dev' in terminal under project root and visit `http://localhost:5173`.
+2. login with your credential and go with your taskflow.
+3. Have fun with webapp.
 
 ---
 
@@ -48,37 +42,34 @@ Example:
 
 1800_202510_BBY13/  
 ├── node_modules/  
-├── public/           # Static assets (e.g., images, fonts, json)  
+├── public/          # Static contents and html  
+│   ├── images/      # images  
+│   ├── dashboard.html      # User dashboard  
+│   ├── readmore.html     # Item readmore  
+│   ├── webapp.html      # Main webapp  
+│   └── widget.html    # login widget  
 ├── src/             # Source code (JS/TS, CSS, etc.)  
-│   ├── main.js      # Entry JavaScript file  
-│   ├── App.jsx      # Example component (using React)  
-│   └── style.css    # Example styles  
-├── index.html       # Entry HTML file (in root, not src)  
+│   ├── styles     # css  
+│   └── js    # js files  
+├── index.html       # Entry HTML file (in root)  
 ├── package.json  
 └── vite.config.js   # Vite configuration  
-
-
-Within src/:  
-├── mainPage.jsx         # Entry point  
-├── App.jsx          # Main component  
-├── styles/          # Folder for CSS files  
-│   ├── main.css     # Global styles  
-│   └── App.css      # Styles specific to App.jsx  
-└── components/  
-    ├── Button.jsx  
-    └── Button.css   # Styles specific to Button component  
 
 ---
 
 ## Contributors-TEAM LLM
-Hi My name is Livjot, I'm so excited to be starting this project and learning coding! 
+
+Hi My name is Livjot, I'm so excited to be starting this project and learning coding!
+
 - **Larry** - sort of coding
 - **May** is here!
+
 ---
 
 ## Acknowledgments
 
 Example:
+
 - Weather data sourced from [OpenWeatherMap](https://openweathermap.org/).
 - Code snippets for ___ algoirthm were adapted from resources such as [Stack Overflow](https://stackoverflow.com/) and [MDN Web Docs](https://developer.mozilla.org/).
 - Icons sourced from [FontAwesome](https://fontawesome.com/) and images from [Unsplash](https://unsplash.com/).
@@ -86,31 +77,11 @@ Example:
 - Logo sourced from [Flaticon](https://www.flaticon.com/free-icon/hug_7081266).
 - Hero sourced from [VistingAngels](https://www.visitingangels.com/articles/outdoor-activities-for-seniors-caregivers/200)
 - About Us Card #3 sourced from [liveinhomecare](https://www.liveinhomecare.com/helping-the-elderly-july-2021-2/helping-the-elderly/).
----
-
-## Limitations and Future Work
-### Limitations
-
-Example:
-- Currently, the app only supports city-based weather searches.
-- Limited to basic weather parameters like temperature, humidity, and conditions.
-- The user interface can be further enhanced for accessibility.
-
-### Future Work
-
-Example: 
-- Add support for location-based weather detection using GPS.
-- Implement additional weather parameters like wind speed and UV index.
-- Create a dark mode for better usability in low-light conditions.
-- Integrate user accounts for saving favorite locations.
 
 ---
+
 
 ## License
 
 Example:
 This project is licensed under the MIT License. See the LICENSE file for details.
-
-
-
-
