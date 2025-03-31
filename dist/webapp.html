@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web App</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-design-iconic-font@2.2.0/dist/css/material-design-iconic-font.min.css">
+
+  <!-- Custom Styles -->
+  <script type="module" crossorigin src="/assets/webapp-C_4ojZuc.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="modulepreload" crossorigin href="/assets/firebase-DS_3XjaV.js">
+  <link rel="stylesheet" crossorigin href="/assets/webapp-BgDeZJCy.css">
+</head>
+<body>
+  <div id="loading" class="d-flex justify-content-center align-items-center vh-100">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <div id="content" class="container-fluid d-none">
+    <nav class="nav-bar p-3">
+      <button id="back-to-dashboard" class="btn btn-secondary">Back to Dashboard</button>
+      <button id="new-random-items" class="btn btn-primary ms-2">New Random Items</button>
+    </nav>
+    <div id="items-container" class="row g-3 p-3"></div>
+    <div id="no-items" class="d-none text-center mt-3">
+      <p>No items found in the collection.</p>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  
+  <!-- Application Script -->
+</body>
+</html>
