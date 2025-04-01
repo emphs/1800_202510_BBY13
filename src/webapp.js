@@ -166,3 +166,4 @@ const init = () => {
 };
 
 init();
+
