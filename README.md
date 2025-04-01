@@ -10,26 +10,26 @@ Summarize your project's purpose, problem solved, key features, user benefits, d
 
 Example:
 
-This client-side JavaScript web application provides real-time weather updates for cities worldwide. It simplifies accessing weather information through an intuitive mobile-first interface, allowing users to input a city name and receive data on temperature, humidity, and conditions.
+This client-side JavaScript web application provides real-time odd-job postings, for families and elders, for cities worldwide. It simplifies the way to ask for help or to get a job done through an intuitive mobile-first interface, allowing users to create/view/comment on postings and communicate for the mutual benefit of both parties.
 
-Developed for the [Course Name] course, applying User-Centred Design practices, agile project management processes, integrating a weather API, and Firebase backend services.
+Developed for the [COMP-1800 PROJECTS-1] course, applying User-Centred Design practices, agile project management processes, and Firebase backend services.
 
 ---
 
 ## Features
 
 Example:
-- Real-time weather updates for any city.
+- Real-time Job Postings/updates
 - Responsive design for desktop and mobile.
-- Displays temperature, humidity, and weather conditions.
+- Displays Jobs, comments made by other users, and saved posts.
 
 ---
 
 ## Technologies Used
 
 Example:
-- **Frontend**: HTML, CSS, JavaScript
-- **Backend**: Firebase for hosting
+- **Frontend**: HTML, CSS, JavaScript, Bootstrap
+- **Backend**: Yarn to host locally
 - **Database**: Firestore
 - **User_Auth**: Firebase authentication
 
@@ -39,8 +39,10 @@ Example:
 
 Example:
 1. Input 'yarn run dev' in terminal under project root and visit `http://localhost:5173`.
-2. Enter the name of the city in the search bar and press enter.
-3. View the weather information displayed on the screen.
+2. Browse Mainpage then press login/get started to login
+3. Create an account to view job postings
+4. Create, Comment, or view job postings
+5. (optional) edit Profile
 
 ---
 
@@ -84,6 +86,8 @@ Example:
 ├── yarn.lock        # Launch via yarn
 └── vite.config.js   # Vite configuration  
 
+---
+
 Within public/:           # Skeleton Pages (HTML, images, imports)  
 ├── images/         # Visuals (Images, SVG, Favicon)
     ├── aboutus.jpg             # Card #1
@@ -110,6 +114,7 @@ Within public/:           # Skeleton Pages (HTML, images, imports)
 ├── webapp.html             # The main Job Posting Dashboard
 └── widget.html
 
+---
 
 Within src/:             # Source code (JS, CSS)  
 ├── styles/         # Style Sheets (CSS)
@@ -132,18 +137,6 @@ Within src/:             # Source code (JS, CSS)
 ├── readmore.js
 ├── sample-config.js    
 └── webapp.js           # Js file for dashboard where jobs are posted 
-
-Within src/:  
-├── mainPage.jsx         # Entry point  
-├── App.jsx          # Main component  
-├── styles/          # Folder for CSS files  
-│   ├── main.css     # Global styles  
-│   └── App.css      # Styles specific to App.jsx  
-└── components/  
-    ├── Button.jsx  
-    └── Button.css   # Styles specific to Button component  
-
----
 
 ## Contributors-TEAM LLM
 - **Livjot**, I'm so excited to be starting this project and learning coding! 
