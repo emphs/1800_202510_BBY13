@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TogetherNow - Profile Editor</title>
+
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" >
+  
+    <!-- CSS -->
+    <link rel="stylesheet" href="/src/styles/profile.css">
+    <link rel="stylesheet" href="/src/styles/navbar.css">
+  
+    <!-- Misc -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/public/images/favicon.ico" />
+      
+</head>
+<body>
+    <div id="reports-scroll-page" class="scrollable-container-reports">
+        <div class="container py-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm">
+                        <div class="card-body p-4">
+                            <!-- Header -->
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h3 class="m-0">Edit Profile</h3>
+                                <a href="profile.html" class="btn btn-outline-secondary">
+                                    <i class="bi bi-x-lg"></i> Cancel
+                                </a>
+                            </div>
+
+                            <!-- Profile Form -->
+                            <form id="profile-form">
+                                <!-- Profile Picture -->
+                                <div class="text-center mb-4">
+                                    <div class="position-relative d-inline-block">
+                                        <img id="profile-picture" src="/public/images/default-avatar.png" 
+                                             alt="Profile Picture" class="rounded-circle mb-3"
+                                             style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #e9ecef; cursor: pointer;">
+                                        <div id="profile-loading" class="position-absolute top-50 start-50 translate-middle" style="display: none;">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <label for="profile-upload" class="btn btn-sm btn-primary position-absolute bottom-0 end-0 rounded-circle">
+                                            <i class="bi bi-camera-fill"></i>
+                                        </label>
+                                        <input type="file" id="profile-upload" class="d-none" accept="image/*">
+                                    </div>
+                                    <small class="text-muted d-block">Click to change profile picture</small>
+                                </div>
+
+                                <!-- Personal Information -->
+                                <div class="mb-4">
+                                    <h5 class="mb-3">Personal Information</h5>
+                                    <div class="row g-3">
+                                        <div class="col-md-12">
+                                            <label class="form-label">Username</label>
+                                            <input type="text" id="name" class="form-control" placeholder="name" required>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label">Email</label>
+                                            <input type="email" id="email" class="form-control" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Title</label>
+                                            <input type="text" id="title" class="form-control" placeholder="Your title or role">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Bio</label>
+                                            <textarea id="bio" class="form-control" rows="3" placeholder="Tell us about yourself"></textarea>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Phone</label>
+                                            <input type="tel" id="phone" class="form-control" placeholder="Phone number">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Location</label>
+                                            <input type="text" id="location" class="form-control" placeholder="Your location">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Change Password -->
+                                <div class="mb-4">
+                                    <h5 class="mb-3">Change Password</h5>
+                                    <div class="row g-3">
+                                        <div class="col-md-12">
+                                            <label class="form-label">Current Password</label>
+                                            <input type="password" id="currentPassword" class="form-control" placeholder="Current Password">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">New Password</label>
+                                            <input type="password" id="newPassword" class="form-control" placeholder="New Password">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Confirm New Password</label>
+                                            <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm New Password">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-check-lg"></i> Save Changes
+                                    </button>
+                                </div>
+                            </form>
+                            
+                            <!-- Message Display -->
+                            <div id="updateMessage" class="alert mt-3" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase Scripts -->
+    <script type="module" src="/src/firebase.js"></script>
+    <script type="module" src="/src/profileupdate.js"></script>
+</body>
+</html>

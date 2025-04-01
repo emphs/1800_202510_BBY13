@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 profileForm.addEventListener('submit', saveProfile);
             }
         } else {
-            window.location.href = 'login-signup-page/login.html';
+            window.location.href = 'login.html';
         }
     });
 });
