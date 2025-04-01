@@ -1,7 +1,8 @@
+// readmore.js
 import { auth, db } from './firebase.js';
 import { doc, getDoc, updateDoc, arrayUnion, onSnapshot } from 'firebase/firestore';
 
-// Dynamically import Bootstrap CSS
+// Dynamically import Bootstrap CSS (already in your code)
 const bootstrapCSS = document.createElement('link');
 bootstrapCSS.rel = 'stylesheet';
 bootstrapCSS.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css';
@@ -19,7 +20,6 @@ document.head.appendChild(customCSS);
 const urlParams = new URLSearchParams(window.location.search);
 const itemId = urlParams.get('itemId');
 
-// Display item details
 async function loadItemDetails() {
     if (!itemId) {
         document.getElementById('item-id').textContent = 'Not specified';
@@ -34,9 +34,15 @@ async function loadItemDetails() {
 
         if (itemDoc.exists()) {
             const itemData = itemDoc.data();
-            document.getElementById('item-id').textContent = itemId;
             document.getElementById('item-name').textContent = itemData.name || 'Unnamed Item';
+            document.getElementById('item-id').textContent = itemId;
             document.getElementById('item-description').textContent = itemData.description || 'No description';
+
+            // Add UserName above Item ID
+            const userNameElement = document.createElement('p');
+            userNameElement.innerHTML = `<strong>UserName:</strong> ${itemData.userName || 'None'}`;
+            const itemIdElement = document.getElementById('item-id').parentElement;
+            itemIdElement.parentElement.insertBefore(userNameElement, itemIdElement);
         } else {
             document.getElementById('item-description').textContent = 'Item not found';
         }
@@ -46,7 +52,6 @@ async function loadItemDetails() {
     }
 }
 
-// Render comments
 function renderComments(comments) {
     const commentsContainer = document.getElementById('comments-container');
     commentsContainer.innerHTML = '';
@@ -60,15 +65,14 @@ function renderComments(comments) {
         const commentDiv = document.createElement('div');
         commentDiv.className = 'comment mb-2 p-2 border rounded';
         commentDiv.innerHTML = `
-      <strong>${comment.username}</strong>
-      <p class="mb-0">${comment.text}</p>
-      <small class="text-muted">${new Date(comment.timestamp).toLocaleString()}</small>
-    `;
+            <strong>${comment.username}</strong>
+            <p class="mb-0">${comment.text}</p>
+            <small class="text-muted">${new Date(comment.timestamp).toLocaleString()}</small>
+        `;
         commentsContainer.appendChild(commentDiv);
     });
 }
 
-// Add comment
 async function addComment() {
     const user = auth.currentUser;
     if (!user) {
@@ -102,7 +106,6 @@ async function addComment() {
     }
 }
 
-// Setup real-time comments listener
 function setupCommentsListener() {
     if (!itemId) return;
 
@@ -117,7 +120,6 @@ function setupCommentsListener() {
     });
 }
 
-// Event listeners
 function setupListeners() {
     document.getElementById('back-to-webapp').addEventListener('click', () => {
         window.location.href = '/webapp.html';
@@ -126,17 +128,14 @@ function setupListeners() {
     document.getElementById('submit-comment').addEventListener('click', addComment);
 }
 
-// Initialize
 function init() {
     auth.onAuthStateChanged((user) => {
         if (!user) {
-            // Disable commenting UI and redirect if not logged in
             document.getElementById('comment-input').disabled = true;
             document.getElementById('submit-comment').disabled = true;
-            loadItemDetails(); // Still load item details for viewing
-            setupCommentsListener(); // Show existing comments
+            loadItemDetails();
+            setupCommentsListener();
         } else {
-            // Enable commenting UI for logged-in users
             document.getElementById('comment-input').disabled = false;
             document.getElementById('submit-comment').disabled = false;
             loadItemDetails();

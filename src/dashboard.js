@@ -1,3 +1,4 @@
+// dashboard.js
 import { app, db, auth } from "./firebase.js";
 import {
     collection,
@@ -12,7 +13,6 @@ import {
     arrayRemove
 } from 'firebase/firestore';
 
-// Function to render items
 async function renderItems() {
     const itemsList = document.getElementById('itemsList');
     itemsList.innerHTML = '<h5 class="card-title">Your Created Items</h5>';
@@ -60,7 +60,6 @@ async function renderItems() {
     }
 }
 
-// Function to remove a bookmark
 async function removeBookmark(itemId) {
     const user = auth.currentUser;
     if (!user) return;
@@ -76,7 +75,6 @@ async function removeBookmark(itemId) {
     }
 }
 
-// Function to render bookmarked items
 async function renderBookmarkedItems() {
     const bookmarkedItemsContainer = document.getElementById('bookmarked-items');
     const contentDiv = bookmarkedItemsContainer.querySelector('.card-body');
@@ -107,7 +105,6 @@ async function renderBookmarkedItems() {
                     const div = document.createElement('div');
                     div.className = 'item mb-3 p-2 border';
 
-                    // Create clickable content
                     const clickableContent = document.createElement('div');
                     clickableContent.className = 'clickable-content';
                     clickableContent.style.cursor = 'pointer';
@@ -116,18 +113,16 @@ async function renderBookmarkedItems() {
                         <p>${itemData.description || ''}</p>
                     `;
                     clickableContent.addEventListener('click', (e) => {
-                        // Prevent navigation if clicking the delete button
                         if (e.target.tagName !== 'BUTTON') {
                             window.location.href = `/readmore.html?itemId=${itemId}`;
                         }
                     });
 
-                    // Delete Bookmark button
                     const deleteBookmarkButton = document.createElement('button');
                     deleteBookmarkButton.textContent = 'Delete Bookmark';
                     deleteBookmarkButton.className = 'btn btn-sm btn-warning mt-2';
                     deleteBookmarkButton.addEventListener('click', (e) => {
-                        e.stopPropagation(); // Prevent triggering the clickable content
+                        e.stopPropagation();
                         removeBookmark(itemId);
                     });
 
@@ -147,7 +142,6 @@ async function renderBookmarkedItems() {
     }
 }
 
-// Add new item
 async function addItem() {
     const name = document.getElementById('item-name').value;
     const description = document.getElementById('description').value;
@@ -168,8 +162,7 @@ async function addItem() {
             name: name,
             description: description,
             userId: user.uid,
-            userName: user.displayName,
-            state: "unhandled",
+            userName: user.displayName || 'None',
             timestamp: serverTimestamp()
         });
         document.getElementById('item-name').value = '';
@@ -181,7 +174,6 @@ async function addItem() {
     }
 }
 
-// Update item
 async function updateItem(id) {
     const newName = prompt('Enter new name:');
     const newDescription = prompt('Enter new description:');
@@ -198,6 +190,7 @@ async function updateItem(id) {
                 name: newName,
                 description: newDescription || '',
                 userId: user.uid,
+                userName: user.displayName || 'None',
                 timestamp: serverTimestamp()
             });
             await renderItems();
@@ -208,7 +201,6 @@ async function updateItem(id) {
     }
 }
 
-// Delete item
 async function deleteItem(id) {
     const user = auth.currentUser;
 
@@ -228,16 +220,13 @@ async function deleteItem(id) {
     }
 }
 
-// Setup dashboard with real-time listeners
 function setupDashboard() {
     const user = auth.currentUser;
     if (!user) return;
 
-    // Initial render
     renderItems();
     renderBookmarkedItems();
 
-    // Real-time listeners
     const unsubscribeItems = onSnapshot(collection(db, 'items'), () => {
         renderItems();
     });
@@ -245,7 +234,6 @@ function setupDashboard() {
         renderBookmarkedItems();
     });
 
-    // Add event listeners only when user is signed in
     document.getElementById('addItemButton').addEventListener('click', addItem);
     document.getElementById('nav-web-app-mobile').addEventListener('click', () => {
         window.location.assign('/webapp.html');
@@ -257,7 +245,6 @@ function setupDashboard() {
     };
 }
 
-// Initialize dashboard
 let unsubscribe = null;
 function init() {
     auth.onAuthStateChanged((user) => {
@@ -276,12 +263,10 @@ function init() {
         }
     });
 
-    // Check initial auth state and render immediately if signed in
     if (auth.currentUser) {
         if (unsubscribe) unsubscribe();
         unsubscribe = setupDashboard();
     }
 }
 
-// Start the application
 init();

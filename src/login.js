@@ -16,7 +16,7 @@ function getUiConfig() {
                     handleSignedInUser(user);
 
                     // Wait briefly to ensure auth state syncs
-                    await new Promise(resolve => setTimeout(resolve, 500));
+                    await new Promise(resolve => setTimeout(resolve, 1000));
 
                     const userDocRef = doc(db, 'users', user.uid);
                     const userDoc = await getDoc(userDocRef);
@@ -43,7 +43,7 @@ function getUiConfig() {
                     }
                 }
 
-                return false;
+                return false; // Prevent redirect
             },
         },
         'signInFlow': 'popup',
