@@ -168,6 +168,8 @@ async function addItem() {
             name: name,
             description: description,
             userId: user.uid,
+            userName: user.displayName,
+            state: "unhandled",
             timestamp: serverTimestamp()
         });
         document.getElementById('item-name').value = '';
