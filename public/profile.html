@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TogetherNow - User Profile</title>
+
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../src/styles/profile.css">
+    <link rel="stylesheet" href="./src/styles/navbar.css">
+
+    <!-- Misc -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
+
+</head>
+<body>
+    <div id="scrollable-profile" class="scrollable-container-reports">
+        <div class="container py-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm">
+                        <div class="card-body p-4">
+                            <!-- Header with Edit Button -->
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h3 class="m-0">User Profile</h3>
+                                <div>
+                                    <a href="updateprofile.html" class="btn btn-outline-primary me-2">
+                                        <i class="bi bi-pencil-square"></i> Edit Profile
+                                    </a>
+                                    <button id="signOutBtn" class="btn btn-outline-danger">
+                                        <i class="bi bi-box-arrow-right"></i> Sign Out
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Profile Picture and Name -->
+                            <div class="text-center mb-4">
+                                <div class="position-relative d-inline-block">
+                                    <img id="profile-picture" src="../../images/default-avatar.png" 
+                                         alt="Profile Picture" class="rounded-circle mb-3" 
+                                         style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #e9ecef;">
+                                    <div id="profile-loading" class="position-absolute top-50 start-50 translate-middle" style="display: none;">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 id="user-name" class="mb-1">Loading...</h4>
+                                <p id="user-bio-short" class="text-muted mb-3"></p>
+                            </div>
+
+                            <!-- Contact Information -->
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <div class="info-card">
+                                        <i class="bi bi-calendar3 text-primary"></i>
+                                        <div>
+                                            <small class="text-muted d-block">Joined</small>
+                                            <span id="join-date">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-card">
+                                        <i class="bi bi-geo-alt text-primary"></i>
+                                        <div>
+                                            <small class="text-muted d-block">Location</small>
+                                            <span id="user-location">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-card">
+                                        <i class="bi bi-envelope text-primary"></i>
+                                        <div>
+                                            <small class="text-muted d-block">Email</small>
+                                            <a id="user-email" href="mailto:" class="text-decoration-none">Loading...</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-card">
+                                        <i class="bi bi-telephone text-primary"></i>
+                                        <div>
+                                            <small class="text-muted d-block">Phone</small>
+                                            <span id="user-phone">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bio Section -->
+                            <div class="bio-section p-3 mb-4">
+                                <h5 class="mb-3">About Me</h5>
+                                <p id="user-bio" class="mb-0">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nav bar -->
+    <nav class="bottom-nav">
+        <a href="./dashboard.html" class="nav-item">
+            <i class="bi bi-layout-text-sidebar-reverse"></i>
+            <span>Personal Dashboard</span>
+        </a>
+        <a href="./webapp.html" class="nav-item">
+            <i class="bi bi-layout-text-window-reverse"></i>
+            <span>Job Dashboard</span>
+        </a>
+        <a href="./profile.html" class="nav-item active">
+            <i class="bi bi-person-fill"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <!-- Bootstrap Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase Scripts -->
+    <script type="module" src="./src/firebase.js"></script>
+    <script type="module" src="./src/profileview.js"></script>
+</body>
+</html>

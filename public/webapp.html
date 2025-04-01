@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web App</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-design-iconic-font@2.2.0/dist/css/material-design-iconic-font.min.css">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="/src/styles/webapp.css" />
+  <link rel="stylesheet" href="/src/styles/navbar.css">
+
+</head>
+<body>
+  <div id="loading" class="d-flex justify-content-center align-items-center vh-100">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <div id="content" class="container-fluid d-none">
+    <nav class="nav-bar p-3">
+      <button id="back-to-dashboard" class="btn btn-secondary">Back to Dashboard</button>
+      <button id="new-random-items" class="btn btn-primary ms-2">Refresh Job Postings</button>
+    </nav>
+    <div id="items-container" class="row g-3 p-3"></div>
+    <div id="no-items" class="d-none text-center mt-3">
+      <p>No items found in the collection.</p>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <div style="height: 60px;"></div> <!-- Spacer to prevent content from overlapping -->
+  <nav class="bottom-nav">
+    <a href="./dashboard.html" class="nav-item">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+        <span>Personal Dashboard</span>
+    </a>
+    <a href="./webapp.html" class="nav-item active">
+        <i class="bi bi-layout-text-window-reverse"></i>
+        <span>Job Dashboard</span>
+    </a>
+    <a href="./profile.html" class="nav-item">
+        <i class="bi bi-person-fill"></i>
+        <span>Profile</span>
+    </a>
+  </nav>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  
+  <!-- Application Script -->
+  <script type="module" src="/src/webapp.js"></script>
+</body>
+</html>
