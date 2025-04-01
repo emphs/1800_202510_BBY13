@@ -1,52 +1,21 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Rules for the 'items' collection
-    match /items/{itemId} {
-      // Allow read if user is authenticated
-      allow read: if request.auth != null;
-
-      // Allow create if user is authenticated and sets their own UID
-      allow create: if request.auth != null
-        && request.resource.data.userId == request.auth.uid;
-
-      // Allow update if user is authenticated
-      // Restrict updates to only adding comments, preserving ownership
-      allow update: if request.auth != null
-        && (
-          // Allow owner to update anything except changing userId
-          (resource.data.userId == request.auth.uid
-           && request.resource.data.userId == resource.data.userId)
-          // OR allow any authenticated user to only add to comments array
-          || (request.resource.data.keys().hasAll(resource.data.keys())
-              && resource.data.diff(request.resource.data).affectedKeys().hasOnly(['comments']))
-        );
-
-      // Allow delete if user is authenticated and owns the item
-      allow delete: if request.auth != null
-        && resource.data.userId == request.auth.uid;
-    }
-
-    // Rules for the 'users' collection
     match /users/{userId} {
-      // Allow read and update only if the user is authenticated and matches the UID
       allow read, update: if request.auth != null && request.auth.uid == userId;
-
-      // Allow create if user is authenticated and creating their own document
       allow create: if request.auth != null && request.auth.uid == userId;
     }
-
-    // Deny all other access by default
+    match /items/{itemId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow update: if request.auth != null && (
+        (resource.data.userId == request.auth.uid && request.resource.data.userId == resource.data.userId) ||
+        (request.resource.data.keys().hasAll(resource.data.keys()) && resource.data.diff(request.resource.data).affectedKeys().hasOnly(['comments']))
+      );
+      allow delete: if request.auth != null && resource.data.userId == request.auth.uid;
+    }
     match /{document=**} {
       allow read, write: if false;
-    }
-  }
-}
-
-service firebase.storage {
-  match /b/{bucket}/o {
-    match /{allPaths=**} {
-      allow read, write: if request.auth != null;
     }
   }
 }
