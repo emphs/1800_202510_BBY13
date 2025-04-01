@@ -13,6 +13,37 @@ import {
     arrayRemove
 } from 'firebase/firestore';
 
+
+async function migratePost() {
+    const user = auth.currentUser;
+    if (!user) {
+        alert("Please sign in to migrate posts");
+        return;
+    }
+
+    try {
+        const querySnapshot = await getDocs(collection(db, 'items'));
+        const updates = [];
+
+        querySnapshot.forEach((docSnapshot) => {
+            const data = docSnapshot.data();
+            if (data.userId === user.uid) {
+                updates.push(updateDoc(docSnapshot.ref, {
+                    userName: user.displayName,
+                    lastModified: serverTimestamp()
+                }));
+            }
+        });
+        await Promise.all(updates);
+        alert(`migrated for ${updates.length}`);
+        renderItems();
+    } catch (error) {
+        console.error("Error migrating posts: ", error);
+        alert("Migration failed: " + error.message);
+    }
+}
+
+
 async function renderItems() {
     const itemsList = document.getElementById('itemsList');
     itemsList.innerHTML = '<h5 class="card-title">Your Created Items</h5>';
