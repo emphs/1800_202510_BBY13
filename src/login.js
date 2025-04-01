@@ -1,5 +1,5 @@
 // login.js
-import { addDoc, collection, doc, getFirestore, serverTimestamp, setDoc } from 'firebase/firestore';
+import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 import * as firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css';
 import { db, auth } from "./firebase.js";
@@ -9,33 +9,42 @@ function getUiConfig() {
         'callbacks': {
             'signInSuccessWithAuthResult': async (authResult, redirectUrl) => {
                 const user = authResult.user;
-                const isNewUser = authResult.additionalUserInfo?.isNewUser;
+
+                console.log('Sign-in result:', { uid: user.uid });
 
                 if (user) {
                     handleSignedInUser(user);
-                }
-                if (isNewUser) {
-                    let res = addDoc(collection(db, 'users'), {
-                        name: user.displayName || 'None',
-                        posts: [],
-                        email: user.email,
-                        email_verified: user.emailVerified,
-                        cellphone: user.phoneNumber,
-                        provider: user.providerId,
-                        create_at: serverTimestamp(),
-                        last_login_at: serverTimestamp(),
-                    });
 
-                    await res;
+                    // Wait briefly to ensure auth state syncs
+                    await new Promise(resolve => setTimeout(resolve, 500));
 
-                    await setDoc(doc(db, 'users', user.uid), {
-                        name: user.displayName || 'None',
-                        email: user.email,
-                        createdAt: Date.now()
-                    });
+                    const userDocRef = doc(db, 'users', user.uid);
+                    const userDoc = await getDoc(userDocRef);
+                    if (!userDoc.exists()) {
+                        try {
+                            console.log('Auth state before setDoc:', auth.currentUser?.uid);
+                            await setDoc(userDocRef, {
+                                name: user.displayName || 'None',
+                                posts: [],
+                                email: user.email,
+                                email_verified: user.emailVerified,
+                                cellphone: user.phoneNumber || null,
+                                provider: authResult.additionalUserInfo?.providerId || 'unknown',
+                                created_at: serverTimestamp(),
+                                last_login_at: serverTimestamp(),
+                            }, { merge: true });
+
+                            console.log(`User ${user.uid} successfully added to Firestore`);
+                        } catch (error) {
+                            console.error('Error adding user to Firestore:', error);
+                        }
+                    } else {
+                        console.log(`User ${user.uid} already exists in Firestore`);
+                    }
                 }
+
                 return false;
-            }
+            },
         },
         'signInFlow': 'popup',
         'signInOptions': [
@@ -102,6 +111,6 @@ window.addEventListener('load', () => {
         deleteAccount();
     });
     document.getElementById('nav-web-app-mobile').addEventListener('click', function() {
-        window.location.assign('../public/webapp.html');
+        window.location.assign('/webapp');
     });
 });
