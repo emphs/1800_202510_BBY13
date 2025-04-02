@@ -13,7 +13,6 @@ import {
     arrayRemove
 } from 'firebase/firestore';
 
-
 async function migratePost() {
     const user = auth.currentUser;
     if (!user) {
@@ -29,20 +28,19 @@ async function migratePost() {
             const data = docSnapshot.data();
             if (data.userId === user.uid) {
                 updates.push(updateDoc(docSnapshot.ref, {
-                    userName: user.displayName,
+                    userName: user.displayName || 'None',
                     lastModified: serverTimestamp()
                 }));
             }
         });
         await Promise.all(updates);
-        alert(`migrated for ${updates.length}`);
+        alert(`Migrated ${updates.length} posts`);
         renderItems();
     } catch (error) {
         console.error("Error migrating posts: ", error);
         alert("Migration failed: " + error.message);
     }
 }
-
 
 async function renderItems() {
     const itemsList = document.getElementById('itemsList');
@@ -66,6 +64,7 @@ async function renderItems() {
                 div.innerHTML = `
                     <strong>${data.name}</strong>
                     <p>${data.description || ''}</p>
+                    <small class="text-muted">Posted by: ${data.userName || 'None'}</small>
                 `;
                 const editButton = document.createElement('button');
                 editButton.textContent = 'Edit';
@@ -142,6 +141,7 @@ async function renderBookmarkedItems() {
                     clickableContent.innerHTML = `
                         <strong>${itemData.name}</strong>
                         <p>${itemData.description || ''}</p>
+                        <small class="text-muted">Posted by: ${itemData.userName || 'None'}</small>
                     `;
                     clickableContent.addEventListener('click', (e) => {
                         if (e.target.tagName !== 'BUTTON') {
@@ -269,6 +269,12 @@ function setupDashboard() {
     document.getElementById('nav-web-app-mobile').addEventListener('click', () => {
         window.location.assign('/webapp.html');
     });
+
+    // Add migrate button listener if you want manual migration
+    const migrateButton = document.getElementById('migrate-posts');
+    if (migrateButton) {
+        migrateButton.addEventListener('click', migratePost);
+    }
 
     return () => {
         unsubscribeItems();

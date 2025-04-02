@@ -1,8 +1,8 @@
-// grab what we need from firebase
+// updateprofile.js
 import { auth, db } from './firebase.js';
-import { doc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, serverTimestamp, collection, getDocs } from 'firebase/firestore'; // Added collection and getDocs
+import { updateProfile } from 'firebase/auth';
 
-// shows feedback messages to the user
 function showMessage(message, type = 'info') {
     const messageDiv = document.getElementById('updateMessage');
     messageDiv.className = `alert alert-${type} mt-3`;
@@ -16,9 +16,8 @@ function showMessage(message, type = 'info') {
     }
 }
 
-let newPhotoURL = null; // Store new photoURL temporarily
+let newPhotoURL = null;
 
-// fills the form with user's existing data
 async function loadUserData(user) {
     try {
         const userDocRef = doc(db, 'users', user.uid);
@@ -47,7 +46,6 @@ async function loadUserData(user) {
     }
 }
 
-// handles compressing and previewing a new profile picture
 async function previewProfilePicture(file) {
     if (!file) return;
     
@@ -98,7 +96,6 @@ async function previewProfilePicture(file) {
         };
 
         newPhotoURL = await compressImage(file, 400, 400, 0.7);
-
         document.getElementById('profile-picture').src = newPhotoURL;
     } catch (error) {
         console.error('Error previewing profile picture:', error);
@@ -106,7 +103,34 @@ async function previewProfilePicture(file) {
     }
 }
 
-// saves all profile changes, including the profile picture
+async function migratePost() {
+    const user = auth.currentUser;
+    if (!user) {
+        alert("Please sign in to migrate posts");
+        return;
+    }
+
+    try {
+        const querySnapshot = await getDocs(collection(db, 'items'));
+        const updates = [];
+
+        querySnapshot.forEach((docSnapshot) => {
+            const data = docSnapshot.data();
+            if (data.userId === user.uid) {
+                updates.push(updateDoc(docSnapshot.ref, {
+                    userName: user.displayName || 'None',
+                    lastModified: serverTimestamp()
+                }));
+            }
+        });
+        await Promise.all(updates);
+        console.log(`Migrated ${updates.length} posts`);
+    } catch (error) {
+        console.error("Error migrating posts: ", error);
+        throw error;
+    }
+}
+
 async function saveProfile(event) {
     event.preventDefault();
     const user = auth.currentUser;
@@ -128,6 +152,11 @@ async function saveProfile(event) {
 
         if (newPhotoURL) {
             updateData.photoURL = newPhotoURL;
+        }
+
+        const newName = updateData.name;
+        if (newName !== user.displayName) {
+            await updateProfile(user, { displayName: newName });
         }
 
         if (updateData.email !== user.email) {
@@ -157,6 +186,10 @@ async function saveProfile(event) {
         }
 
         await updateDoc(doc(db, 'users', user.uid), updateData);
+        
+        // Migrate existing items
+        await migratePost();
+
         showMessage('Profile updated! Redirecting...', 'success');
     } catch (error) {
         console.error('Error updating profile:', error);
@@ -164,7 +197,6 @@ async function saveProfile(event) {
     }
 }
 
-// Set up event listeners when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     auth.onAuthStateChanged((user) => {
         if (user) {
