@@ -13,6 +13,8 @@ import {
     arrayRemove
 } from 'firebase/firestore';
 
+// Note: Add SweetAlert2 via CDN in your HTML (see below), no import needed for CDN approach
+
 async function migratePost() {
     const user = auth.currentUser;
     if (!user) {
@@ -206,8 +208,6 @@ async function addItem() {
 }
 
 async function updateItem(id) {
-    const newName = prompt('Enter new name:');
-    const newDescription = prompt('Enter new description:');
     const user = auth.currentUser;
 
     if (!user) {
@@ -215,7 +215,40 @@ async function updateItem(id) {
         return;
     }
 
-    if (newName) {
+    // Fetch current item data to pre-fill the form
+    const itemDoc = await getDoc(doc(db, 'items', id));
+    if (!itemDoc.exists()) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Item not found!',
+        });
+        return;
+    }
+    const currentData = itemDoc.data();
+
+    // Use SweetAlert2 to prompt for new name and description
+    const { value: formValues } = await Swal.fire({
+        title: 'Edit Item',
+        html:
+            '<input id="swal-input1" class="swal2-input" placeholder="New Name" value="' + (currentData.name || '') + '">' +
+            '<textarea id="swal-input2" class="swal2-textarea" placeholder="New Description">' + (currentData.description || '') + '</textarea>',
+        focusConfirm: false,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        preConfirm: () => {
+            const newName = document.getElementById('swal-input1').value.trim();
+            const newDescription = document.getElementById('swal-input2').value.trim();
+            if (!newName) {
+                Swal.showValidationMessage('Name is required');
+                return false;
+            }
+            return [newName, newDescription];
+        }
+    });
+
+    if (formValues) {
+        const [newName, newDescription] = formValues;
         try {
             await updateDoc(doc(db, 'items', id), {
                 name: newName,
@@ -224,10 +257,21 @@ async function updateItem(id) {
                 userName: user.displayName || 'None',
                 timestamp: serverTimestamp()
             });
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Item updated successfully!',
+                timer: 1500,
+                showConfirmButton: false
+            });
             await renderItems();
         } catch (error) {
             console.error("Error updating item: ", error);
-            alert("Failed to update item: " + error.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to update item: ' + error.message,
+            });
         }
     }
 }
@@ -270,7 +314,6 @@ function setupDashboard() {
         window.location.assign('/webapp.html');
     });
 
-    // Add migrate button listener if you want manual migration
     const migrateButton = document.getElementById('migrate-posts');
     if (migrateButton) {
         migrateButton.addEventListener('click', migratePost);
