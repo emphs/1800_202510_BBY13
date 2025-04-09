@@ -164,6 +164,10 @@ h1 {
     box-sizing: content-box !important;
   }
 
+  body {
+    padding-bottom: 0px;
+  }
+
   .container {
     --bs-gutter-x: 0;
   }
@@ -172,6 +176,10 @@ h1 {
     overflow-y: auto;
     overflow-x: hidden;
     height: 90% !important;
+  }
+
+  .py-4 {
+    padding-bottom: 0rem !important;
   }
 
   .g-3 {
